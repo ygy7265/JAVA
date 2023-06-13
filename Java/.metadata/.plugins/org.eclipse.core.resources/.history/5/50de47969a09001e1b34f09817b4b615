@@ -1,0 +1,18 @@
+package ch01.sec06;
+
+import java.util.Scanner;
+
+public class baekjoon {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		Scanner scan = new Scanner(System.in);
+		Scanner scan2 = new Scanner(System.in);
+		int hour = scan.nextInt();
+		int minnute = scan2.nextInt();
+		
+		System.out.print(hour + " " + minnute);
+		
+	}
+
+}

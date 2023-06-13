@@ -1,0 +1,23 @@
+package sub01;
+/*
+ * 날짜 : 2023/06/13
+ * 이름 : 윤경엽
+ * 내용 : JAVA 조건문 if 실습하기
+ */
+public class IfTest {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		int num1 =1;
+		int num2 = 2;
+		
+		if(num1 < num2) {
+			System.out.println("num1은 num2 보다 작다.");
+		}
+		if(num1 > 1) {
+			System.out.println("num1은 1보다 크다");
+		}
+
+	}
+
+}

@@ -1,0 +1,27 @@
+package sub03;
+
+public class DataTypeTest {
+
+	public static void main(String[] args) {
+		
+		//정수형
+		byte num1 = 127; //127까지만 저장가능 8개의비트중 맨앞은 부호 나머지 7 개를 10진수화 시키면 127 
+		short num2 = 32767; //32767 까지 저장가능
+		int num3 = 2147483647;
+		long num4 = 92233720368547707L;
+		
+		System.out.println("num1 = " +  num1);
+		System.out.println("num2 = " +  num2);
+		System.out.println("num3 = " +  num3);
+		System.out.println("num4 = " +  num4);
+		
+		//실수형
+		float var1 = 0.123456789f;
+		double var2 = 0.1234567890123456789; //16자리까지출력가능
+		
+		System.out.println(var1);
+		System.out.println(var2);
+		
+	}
+
+}
