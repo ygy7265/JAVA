@@ -7,7 +7,7 @@ package sub01;
  * 
  * 클래스와 객체
  * -클래스는 객체를 생성하는 구조체이고 속성(필드.멤버변수)과 기능(멤버 메서드) 으로 설계
- * -객체는 클래스의 실제 인스턴스, new 연산으로 생상
+ * -객체(Object)는 클래스의 실제 인스턴스(Instance, new 연산으로 생성)
  */
 public class ClassTest {
 
@@ -17,7 +17,7 @@ public class ClassTest {
 		Car1 sonata = new Car1();
 		
 		//객체(Object) 초기화
-		sonata.name  = "소나타";
+		String a =sonata.name  = "소나타";
 		sonata.color = "흰색";
 		sonata.speed = 0;
 		
