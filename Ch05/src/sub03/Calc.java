@@ -3,12 +3,11 @@ package sub03;
 public class Calc {
 	
 	//教臂沛 按眉
-	//牢胶藕胶 积己
+	//牢胶畔胶 积己
 	private static Calc instance  = new Calc();
 	public static Calc getInstance() {
 		return instance;
 	}
-	
 	private Calc() {}
 	
 	public int plus(int x, int y) {
