@@ -1,5 +1,7 @@
 package Test1;
 
+import java.util.Scanner;
+
 public class test10 {
 
 	public static void main(String[] args) {
@@ -20,6 +22,12 @@ public class test10 {
 			
 			n1 = n2;
 			n2 = n3;
+			Scanner sc = new Scanner(System.in);
+			 int num1 = sc.nextInt();
+			 int num2 = sc.nextInt();
+			 
+			 
+			 System.out.print(num1 + num2);
 		}
 		
 	

@@ -31,6 +31,8 @@ public class test1 {
 		System.out.println("var8 : " + var8);
 		System.out.println("var9 : " + var9);
 		
+		
+		
 
 	}
 
