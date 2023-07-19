@@ -1,0 +1,5 @@
+package review;
+
+public enum Weekenum {
+	MONDAY,TUESDAY,WEDENSDAY,THURSDAY,FRIDAY,SATUDAY,SUNDAY
+}
