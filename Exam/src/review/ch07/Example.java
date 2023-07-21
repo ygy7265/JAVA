@@ -1,4 +1,4 @@
-package review;
+package review.ch07;
 class A{
 	public void method1() {
 		System.out.println("A-method1()");

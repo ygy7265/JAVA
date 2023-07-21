@@ -1,4 +1,4 @@
-package review;
+package review.ch07;
 
 public class Parent {
 	public String name;

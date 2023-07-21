@@ -1,4 +1,4 @@
-package review;
+package review.ch07;
 class Tire{
 	public void run() {
 		// TODO Auto-generated method stub

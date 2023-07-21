@@ -1,24 +1,17 @@
 package review;
 
 import java.sql.Array;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Scanner;
 class Accounts{
-	private static Accounts instance;
 	private String id;
 	private String name;
 	private int money;
 	
-	private Accounts() {
+	public Accounts() {
 		
-	}
-	public static Accounts getinstance() {
-		if(instance == null) {
-			instance = new Accounts();
-		}
-		return instance;
-	}
-	
+	}	
 	public void setId(String id) {
 		this.id = id;
 	}
@@ -43,6 +36,26 @@ class Accounts{
 		 return "ID: " + id + ", Name: " + name + ", Money: " + money;
 	}
 	
+}
+class AccountFactory{
+	private ArrayList<Accounts> accountList;
+	
+	public AccountFactory() {
+		accountList = new ArrayList<>();
+	}
+	
+	public Accounts createAccount(String id, String name,int money) {
+		Accounts account = new Accounts();
+		account.setId(id);
+		account.setName(name);
+		account.setMoney(money);
+		accountList.add(account);
+		return account;
+		
+	}
+	public ArrayList<Accounts> getAccountsList(){
+		return accountList;
+	}
 }
 class Account{
 	private static Account instance;
@@ -69,7 +82,7 @@ class Account{
 }
 
 class Shop{
-	private static Shop instance;
+	private static Shop instance = new Shop();
 	private Shop() {
 		
 	}
@@ -167,6 +180,7 @@ public class Member {
 		
 		
 		Accounts acc[] = new Accounts[100];
+		AccountFactory factory = new AccountFactory();
 		while(true) {
 			System.out.println("----------------------6-------------------");
 			System.out.println("1.Account create | 2.Account list | 3.balence add | 4. balence mi | exit");
@@ -174,30 +188,22 @@ public class Member {
 			int choice = sc.nextInt();
 			
 			if(choice ==1) {
-				Accounts acs = Accounts.getinstance();
-				Accounts newacs = new Account
+
 				System.out.print("accid = " );
-				acs.setId(sc.next());
+				String id = sc.next();
 				System.out.print("name = ");
-				acs.setName(sc.next());
+				String name = sc.next();
 				System.out.print("money = ");
-				acs.setMoney(sc.nextInt());
+				int money = sc.nextInt();
 				System.out.println("Account create sucess");
 				
-				for(int i=0; i<acc.length; i++) {
-					
-					if(acc[i] == null) {
-						acc[i] = acs;
-						break;
-					}		
-				}
+				factory.createAccount(id, name, money);			
 			}
 			else if(choice ==2) {
-				for(Accounts ac : acc) {
-					if(ac != null) {
-						System.out.println(ac);
-						
-					}
+				ArrayList<Accounts> accountList = factory.getAccountsList();
+				
+				for(Accounts ac : accountList) {
+					System.out.println(ac);
 				}
 				
 			}

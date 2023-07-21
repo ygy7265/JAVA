@@ -1,4 +1,4 @@
-package review;
+package review.ch07;
 class Activity{
 	public void onCreate() {
 		System.out.println("Basic run...");

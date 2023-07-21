@@ -1,4 +1,4 @@
-package review;
+package review.ch07;
 
 class Parent2 {
 	public String nation;
