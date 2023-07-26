@@ -3,7 +3,7 @@
 <html>
 	<head>
 		<meta charset="UTF-8">
-		<title>Insert title here</title>
+		<title>3_pageContext</title>
 	</head>
 	<body>
 		<h3>3.pageContext</h3>
