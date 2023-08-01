@@ -13,7 +13,7 @@
 	<body>
 		<h3>User1 </h3>
 		<a href="/Ch06/1_JDBC.jsp">index</a>
-		<a href="/Ch06/user1/register.jsp">user1 add</a>
+		<a href="/Ch06/user1/list.jsp">user1 list</a>
 		<form action="/Ch06/user1/registerProc.jsp">
 			<table border="1">
 				<tr>

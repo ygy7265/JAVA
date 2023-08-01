@@ -1,3 +1,6 @@
+<%@page import="javax.sql.DataSource"%>
+<%@page import="javax.naming.InitialContext"%>
+<%@page import="javax.naming.Context"%>
 <%@page import="vo.UserVo"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="java.util.List"%>
@@ -12,14 +15,15 @@
 	content : JDBC
  -->
 <%
-		String host = "jdbc:mysql://127.0.0.1:3306/userdb";
-		String user = "root";
-		String pass = "root";
+	
 		List<UserVo> users = new ArrayList<>();
 	try{
+		Context initCtx = new InitialContext();
+		Context ctx = (Context)initCtx.lookup("java:comp/env");
+		DataSource ds = (DataSource)ctx.lookup("jdbc/userdb");
+		Connection conn = ds.getConnection();
 		
-		Class.forName("com.mysql.cj.jdbc.Driver");
-		Connection conn = DriverManager.getConnection(host,user,pass);
+		
 		Statement st = conn.createStatement();
 		ResultSet rs = st.executeQuery("select * from `user1`");
 		
