@@ -1,4 +1,13 @@
+<%@page import="vo.UserVo"%>
 <%@ page contentType="text/html;charset=UTF-8" pageEncoding="UTF-8"%>
+<%
+	 UserVo sessUser = (UserVo)session.getAttribute("sessUser");
+		
+	if(sessUser == null){
+		response.sendRedirect("/Jboard/user/login.jsp?success=101");
+		return;
+	}
+%>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -15,8 +24,8 @@
         <header>
             <h3>Board System v1.0</h3>
             <p>
-                WellCome
-                <a href="#" class="logout">Logout</a>
+               <%=sessUser.getNick() %> WellCome
+                <a href="/Jboard/user/logout.jsp" class="logout">Logout</a>
             </p>
         </header>
         <main>

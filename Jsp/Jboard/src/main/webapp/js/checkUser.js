@@ -1,112 +1,144 @@
 /**
- * 
+ * 사용자 개인정보 중복체크
  */
+$(function(){
+	
+	// 아이디 중복체크
+	$('#btnCheck').click(function(){
+		
+		const uid = $('input[name=uid]').val();
+		
+		if(!uid.match(reUid)){
+			$('.resultId').css('color', 'red').text('유효한 아이디가 아닙니다.');
+			isUidOk = false;
+			return; // 종료
+		}
+		    			
+		const jsonData = {
+			"uid": uid
+		};
+		
+		$.ajax({
+			url:'/Jboard/user/checkUser.jsp',
+			type:'GET',
+			data: jsonData,
+			dataType:'json',
+			success:function(data){
+				if(data.result >= 1){
+					$('.resultId').css('color', 'red').text('이미 사용중인 아이디 입니다.');
+					isUidOk = false;
+				}else{
+					$('.resultId').css('color', 'green').text('사용 가능한 아이디 입니다.');
+					isUidOk = true;
+				}
+			}
+		});
+		
+	}); // 아이디 중복체크 끝
+	
+	// 닉네임 중복체크
+	$('input[name=nick]').focusout(function(){
+		
+		// 입력 데이터 가져오기
+		const nick = $(this).val();
+		
+		if(!nick.match(reNick)){
+			$('.resultNick').css('color', 'red').text('유효한 닉네임이 아닙니다.');
+			isNickOk = false;
+			return;
+		}
+		
+		// JSON 생성
+		const jsonData = {
+			"nick": nick 
+		};
+		
+		// 데이터 전송
+		$.get('/Jboard/user/checkUser.jsp', jsonData, function(data){
+			
+			if(data.result >= 1){
+				$('.resultNick').css('color', 'red').text('이미 사용중인 별명 입니다.');
+				isNickOk = false;
+			}else{
+				$('.resultNick').css('color', 'green').text('사용 가능한 별명 입니다.');
+				isNickOk = true;
+			}
+		});
+		
+	});// 닉네임 중복체크 끝
+	
+	// 이메일 중복체크
+	document.getElementsByName('email')[0].onfocusout = function(){
+		
+		const resultEmail = document.getElementById('resultemail');
+		
+		// 입력 데이터 가져오기
+		const email = this.value;
+		
+		if(!email.match(reEmail)){
+			resultEmail.innerText = '유효한 이메일이 아닙니다.';
+			resultEmail.style.color = 'red';
+			isEmailOk = false;
+			return;
+		}
 
-  $(function(){
-    	//ID Check
-    	$('#btnCheck').click(function(e){
-    		e.preventDefault();
-    		
-    		const uid = $('input[name=uid]').val();
-    		const jsonData = {
-    				"uid" : uid
-    		}
-    		
-    		$.ajax({
-    			url:'/Jboard/user/checkUid.jsp',
-    			type:'GET',
-    			data: jsonData,
-    			dataType:'json',
-    			success: function(data){
-    				console.log(data);
-    				if(data.result >= 1){
-    					$('.resultId').css('color', 'red').text('Using in id Change Please..');
-    				}
-    				else{
-    					$('.resultId').css('color', 'blue').text('Good ID!');
-    				}
-    			}
-    		})
-    	})
-    	
-    	//Signin
-    	$('.btnjoin').click(function(){
-    		$.ajax({
-    			url:'/Jboard/user/registerProc.jsp',
-    			type:'GET',
-    			dataType:'json',
-    			success: function(data){
-    				location.href = "/Jboard/user/register.jsp"
-    			}
-    		})
-    	});
-    	
-    	//nickCheck
-    	$('input[name=nick]').focusout(function(){
-    		
-    		const nick = $(this).val();
-    		console.log(nick);
-    		
-    		const jsonData = { "nick" : nick};
-    		$.get('/Jboard/user/checkNick.jsp',jsonData,function(data){
-    			var result = parseInt(data.result);
-    			console.log(data);
-    			if(data.result >= 1){
-    				$('.resultnick').css('color', 'red').text('Using in Nick Change Please..');
-    			}else{
-    				$('.resultnick').css('color','blue').text('Nice Nick!!');
-    			}
-    	});
-    		
-    		//email check..
-    		const email = document.getElementsByName('email')[0];
-    		email.onfocusout = function(){
-    			
-    			const email = this.value;
-    			console.log('email = ' + email);
-    			const xhr = new XMLHttpRequest();
-    			xhr.open('GET','/Jboard/user/checkEmail.jsp?email=' + email);
-    			xhr.send();
-    			
-    			xhr.onreadystatechange = function(){
-    				
-    				if(xhr.readyState == XMLHttpRequest.DONE){
-    					if(xhr.status == 200){
-    						const data = JSON.parse(xhr.response);
-    						const mail = document.getElementById('resultemail');
-    						console.log(mail);
-    						if(data.result >= 1){
-    		    				mail.innerText = "Using in mail Change Please..";
-    		    				mail.style.color = 'red';
-    		    			}else{
-    		    				mail.innerText = "Nice email";
-    		    				mail.style.color = 'blue';
-    		    			}
-    					}
-    				}
-    			}
-    		}
-    		
-    		//hp check..
-    		document.getElementsByName('hp')[0].addEventListener('focusout',function(){
-    			
-    			const url = '/Jboard/user/checkHp.jsp?hp='+this.value;
-    			fetch(url)
-    				.then(response => response.json())
-    				.then(data => {
-    					console.log(data);
-    					const resultHp = document.getElementById('resultHp');
-    					if(data.result >= 1){
-    						resultHp.innerText = 'No';
-    						resultHp.style.color = 'red';
-    					}
-    					else{
-    						resultHp.innerText = "Yes";
-    						resultHp.style.color = 'blue';
-    					}
-    				});
-    		});
-    		
-    		
-    	});
-    });
+		// 데이터 전송
+		const xhr = new XMLHttpRequest();
+		xhr.open('GET', '/Jboard/user/checkUser.jsp?email='+email);
+		xhr.send();
+		
+		// 응답 결과
+		xhr.onreadystatechange = function(){    				
+			if(xhr.readyState == XMLHttpRequest.DONE){						
+				if(xhr.status == 200){
+					const data = JSON.parse(xhr.response);
+					console.log('data : ' + data);
+					
+					if(data.result >= 1){
+						resultEmail.innerText = '이미 사용중인 이메일 입니다.';
+						resultEmail.style.color = 'red';
+						isEmailOk = false;
+					}else{
+						resultEmail.innerText = '사용 가능한 이메일 입니다.';
+						resultEmail.style.color = 'green';
+						isEmailOk = true;
+					}
+				}
+			}    				
+		}// onreadystatechange end
+	} // 이메일 중복체크 끝
+	
+	// 휴대폰 중복체크
+	document.getElementsByName('hp')[0].addEventListener('focusout', function(){
+		
+		const resultHp = document.getElementById('resultHp');
+		const hp = this.value;
+		
+		if(!hp.match(reHp)){
+			resultHp.innerText = '유효한 휴대폰번호가 아닙니다.';
+			resultHp.style.color = 'red';
+			isHpOk = false;
+			return;
+		}
+		
+		const url = '/Jboard/user/checkUser.jsp?hp='+this.value;
+		
+		fetch(url)
+			.then(response => response.json())
+			.then(data => {
+				console.log(data);
+				
+				if(data.result >= 1){
+					resultHp.innerText = '이미 사용중인 휴대폰번호 입니다.';
+					resultHp.style.color = 'red';
+					isHpOk = false;
+				}else{
+					resultHp.innerText = '사용 가능한 휴대폰번호 입니다.';
+					resultHp.style.color = 'green';
+					isHpOk = true;
+				}
+			});
+		
+	}); // 휴대폰 중복체크 끝
+	
+}); // 사용자 개인정보 중복체크 끝

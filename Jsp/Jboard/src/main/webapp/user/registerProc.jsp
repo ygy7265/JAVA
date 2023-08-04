@@ -1,3 +1,5 @@
+<%@page import="vo.UserVo"%>
+<%@page import="dao.UserDao"%>
 <%@page import="com.google.gson.Gson"%>
 <%@page import="java.sql.PreparedStatement"%>
 <%@page import="java.sql.Connection"%>
@@ -21,31 +23,18 @@
 	String addr2 = request.getParameter("addr2");
 	String regip = request.getRemoteAddr();
 
+	UserVo vo = new UserVo();
+	vo.setUid(uid);
+	vo.setPass(pass1);
+	vo.setName(name);
+	vo.setNick(nick);
+	vo.setEmail(email);
+	vo.setHp(hp);
+	vo.setAddr1(addr1);
+	vo.setAddr2(addr2);
+	vo.setRegip(regip);
 	
-	
-	int result = 0;
-	try{
-	Context initCtx = new InitialContext();
-	Context Ctx = (Context) initCtx.lookup("java:comp/env");
-	DataSource ds = (DataSource) Ctx.lookup("jdbc/jboard");
-	Connection conn = ds.getConnection();
-	
-	
-	PreparedStatement psmt = conn.prepareStatement("insert into `user` values(?,?,?,?,?,?,null,?,?,?,?,NOW(),null)");
-	psmt.setString(1, uid);
-	psmt.setString(2, pass1);
-	psmt.setString(3, name);
-	psmt.setString(4, nick);
-	psmt.setString(5, email);
-	psmt.setString(6, hp);
-	psmt.setString(7, zip);
-	psmt.setString(8, addr1);
-	psmt.setString(9, addr2);
-	psmt.setString(10, regip);
-	result = psmt.executeUpdate();
-	}catch(Exception e){
-		e.printStackTrace();
-	}
+	UserDao.getInstance().insertUser(vo);
 	response.sendRedirect("/Jboard/user/login.jsp");
 
 	

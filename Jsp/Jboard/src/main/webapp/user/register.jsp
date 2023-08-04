@@ -5,57 +5,22 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Jboard::register</title>
-    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="/Jboard/css/style.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
-    
-    <!-- Check -->
-    <script type="text/javascript" src="/Jboard/js/checkUser.js"></script>
     
     <!-- zip -->
     <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
     <script type="text/javascript" src="/Jboard/js/zipcode.js"></script>
     
+    <!-- validation -->
+    <script type="text/javascript" src="/Jboard/js/validation.js"></script>
+    <!-- Check -->
+    <script type="text/javascript" src="/Jboard/js/checkUser.js"></script>
     <script type="text/javascript">
     
-    let isUidOk = false;
-    let isPassOk = false;
-    let isNameOk = false;
-    let isEmailOk = false;
-    let isHpOk = false;
-    $(function(){
-    	//ID Check
-    	//Password Check
-    	//Name Check
-    	//Nick Check
-    	//Email Check
-    	//Phone Check
-    	
-    	//final Test Check
-    	$('#formuser').submit(function(e){
-    		
-    		
-    		if(!isUidOk){
-    			return false;
-    		}
-    		else if(!isPassOk){
-    			return false;
-    		}
-    		else if(!isNameOk){
-    			return false;
-    		}
-    		else if(!isNickOk){
-    			return false;
-    		}
-    		else if(!isEmailOk){
-    			return false;
-    		}
-    		else if(!isHpOk){
-    			return false;
-    		}
-    	
-    	});
-    });
+   
     </script>
+    
 </head>
 <body>
     <div id="container">
@@ -64,14 +29,14 @@
         </header>
         <main>
           <section id="user" class="register">
-           	<form id ='formuser'action="/Jboard/user/registerProc.jsp" method="post">
+           	<form id ='formuser'action="./Jboard/user/registerProc.jsp" method="post">
              <table border="1">
                <caption>Site UsingInformatin ADD</caption>
                <tr>
                    <td>ID</td>
                    <td>
                        <input type="text" name="uid" placeholder="ID ADD">
-                       <button type = "button"id="btnCheck"><img src="../images/chk_id.gif" alt=""></button>
+                       <button type = "button"id="btnCheck"><img src="/Jboard/images/chk_id.gif" alt=""></button>
                        <span class="resultId"></span>
                    </td>
                </tr>
@@ -83,7 +48,10 @@
                </tr>
                <tr>
                    <td>PASSWORD CHECK</td>
-                   <td><input type="password" name="pass2" placeholder="PASSWORD CHECK"></td>
+                   <td>
+                   		<input type="password" name="pass2" placeholder="PASSWORD CHECK">
+                   		<span class="resultpass"></span>
+                   </td>
                </tr>
              </table>
             <table border="1">
@@ -92,6 +60,7 @@
                   <td>Name</td>
                   <td>
                       <input type="text" name="name"placeholder="Name Add">
+                      <span class="resultname"></span>
                   </td>
               </tr>
               <tr>
@@ -99,13 +68,14 @@
                   <td>
                       <p>Only Korea,English,Number</p>
                       <input type="text" name="nick"placeholder="NickName Add">
-                      <span class="resultnick"></span>
+                      <span class="resultNick"></span>
                   </td>
               </tr>
               <tr>
                   <td>E-Mail</td>
-                  <td><input type="text" name="email"placeholder="E-Maii Add">
-                  	<span id="resultemail"></span>
+                  <td>
+                  		<input  type="text" name="email"placeholder="E-Maii Add">
+                  		<span id="resultemail"></span>
                   </td>
                    
               </tr>
