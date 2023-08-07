@@ -29,7 +29,7 @@
         </header>
         <main>
           <section id="user" class="register">
-           	<form id ='formuser'action="./Jboard/user/registerProc.jsp" method="post">
+           	<form id ='formuser'action="./Jboard/proc/Proc.jsp?num=2" method="post">
              <table border="1">
                <caption>Site UsingInformatin ADD</caption>
                <tr>
@@ -43,7 +43,7 @@
                <tr>
                    <td>PASSWORD</td>
                    <td>
-                       <input type="password" name="pass1" placeholder="PASSWORD ADD">
+                       <input type="password" name="pass" placeholder="PASSWORD ADD">
                    </td>
                </tr>
                <tr>
@@ -103,7 +103,7 @@
               </tr>
             </table>
             <div>
-              <a href="./login.html" class="btnCancel">Cancel</a>
+              <a href="./login.jsp" class="btnCancel">Cancel</a>
           	  <input type="submit" class="btnjoin" value="SignIn">
         	</div>
       		</form>

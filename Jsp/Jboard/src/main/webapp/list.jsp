@@ -1,68 +1,49 @@
+<%@page import="vo.ArticleVo"%>
+<%@page import="java.util.List"%>
+<%@page import="dao.ArticleDAO"%>
 <%@page import="vo.UserVo"%>
 <%@ page contentType="text/html;charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ include file="./_header.jsp" %>
 <%
-	 UserVo sessUser = (UserVo)session.getAttribute("sessUser");
-		
-	if(sessUser == null){
-		response.sendRedirect("/Jboard/user/login.jsp?success=101");
-		return;
-	}
+	ArticleDAO dao = new ArticleDAO();
+	List<ArticleVo> list = dao.selectAticles();
+	
 %>
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Jboard::list</title>
-    <link rel="stylesheet" href="./css/style.css">
-    <style>
-    
-    </style>
-</head>
-<body>
-    <div id="container">
-        <header>
-            <h3>Board System v1.0</h3>
-            <p>
-               <%=sessUser.getNick() %> WellCome
-                <a href="/Jboard/user/logout.jsp" class="logout">Logout</a>
-            </p>
-        </header>
-        <main>
-            <section id="board" class="list">
-                <h3>List</h3>
-                <article>
-                    <table>
-                        <tr>
-                            <th>Number</th>
-                            <th>Title</th>
-                            <th>Writer</th>
-                            <th>Date</th>
-                            <th>inquiry</th>
-                        </tr>
-                        <tr>
-                            <td>1</td>
-                            <td><a href="./view.html">TestTitle</a>&nbsp;[3]</td>
-                            <td>YoonGyeongYeop</td>
-                            <td>23-08-01</td>
-                            <td>255</td>
-                        </tr>
-                    </table>
-                </article>
-                <div class="paging">
-                    <a href="#" class="prev">Back</a>
-                    <a href="#" class="num current">1</a>
-                    <a href="#" class="num">2</a>
-                    <a href="#" class="num">3</a>
-                    <a href="#" class="next">Next</a>
-                </div>
+		
+  <main>
+      <section id="board" class="list">
+          <h3>List</h3>
+          <article>
+              <table class="writertable">
+                  <tr>
+                      <th>Number</th>
+                      <th>Title</th>
+                      <th>Writer</th>
+                      <th>Date</th>
+                      <th>inquiry</th>
+                  </tr>
+                  <% for(ArticleVo article : list){ %>
+                  <tr>
+                      <td><%=article.getNo() %></td>
+                      <td><a href="./view.html"><%=article.getTitle() %></a>&nbsp;[<%=article.getComment() %>]</td>
+                      <td><%=article.getWriter() %></td>
+                      <td><%=article.getRdate() %></td>
+                      <td><%=article.getHit() %></td>
+                  </tr>
+                  <%
+                  }
+                  %>
+              </table>
+          </article>
+          <div class="paging">
+              <a href="#" class="prev">Back</a>
+              <a href="#" class="num current">1</a>
+              <a href="#" class="num">2</a>
+              <a href="#" class="num">3</a>
+              <a href="#" class="next">Next</a>
+          </div>
 
-                <a href="#" class="btnWrite">Write</a>
-            </section>
-        </main>
-        <footer>
-            <p>ⓒcopyright YoonGyeongYeop.com</p>
-        </footer>
-    </div>
-</body>
-</html>
+          <a href="/Jboard/write.jsp" class="btnWrite">Write</a>
+      </section>
+  </main>
+<%@ include file="./_footer.jsp" %>

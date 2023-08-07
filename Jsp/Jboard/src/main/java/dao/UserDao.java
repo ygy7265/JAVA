@@ -15,20 +15,15 @@ import db.SQL;
 import vo.UserVo;
 
 public class UserDao extends DBHelper{
-	int result = 0;
+	
 	private static UserDao instance = new UserDao();
 	public static UserDao getInstance() { return instance; }
 	private UserDao() {}
 
 	public int selectCountUid(String uid) {
-		
-		
+		int result = 0;
 		try{
-			Context initCtx = new InitialContext();
-			Context ctx = (Context) initCtx.lookup("java:comp/env");
-			DataSource ds = (DataSource) ctx.lookup("jdbc/jboard");
-			Connection conn =  ds.getConnection();
-			
+			getConeecition();
 			PreparedStatement pst = conn.prepareStatement(SQL.SELECT_COUNT_UID);
 			pst.setString(1, uid);
 			
@@ -38,9 +33,7 @@ public class UserDao extends DBHelper{
 				 result = rs.getInt(1);
 			}
 			
-			conn.close();
-			pst.close();
-			rs.close();
+			close();
 		}catch(Exception e){
 			e.printStackTrace();
 		}
@@ -49,11 +42,7 @@ public class UserDao extends DBHelper{
 	public int selectCountNick(String nick) {
 		int result = 0;
 		try{
-			Context initCtx = new InitialContext();
-			Context ctx = (Context) initCtx.lookup("java:comp/env");
-			DataSource ds = (DataSource) ctx.lookup("jdbc/jboard");
-			Connection conn =  ds.getConnection();
-			
+			getConeecition();
 			PreparedStatement pst = conn.prepareStatement(SQL.SELECT_COUNT_NICK);
 			pst.setString(1, nick);
 			
@@ -63,9 +52,7 @@ public class UserDao extends DBHelper{
 				 result = rs.getInt(1);
 			}
 			
-			conn.close();
-			pst.close();
-			rs.close();
+			close();
 		}catch(Exception e){
 			e.printStackTrace();
 		}
@@ -88,9 +75,7 @@ public class UserDao extends DBHelper{
 				 result = rs.getInt(1);
 			}
 			
-			conn.close();
-			pst.close();
-			rs.close();
+			close();
 		}catch(Exception e){
 			e.printStackTrace();
 		}
@@ -101,10 +86,7 @@ public class UserDao extends DBHelper{
 		int result = 0;
 		
 		try{
-			Context initCtx = new InitialContext();
-			Context ctx = (Context) initCtx.lookup("java:comp/env");
-			DataSource ds = (DataSource) ctx.lookup("jdbc/jboard");
-			Connection conn =  ds.getConnection();
+			getConeecition();
 			
 			PreparedStatement pst = conn.prepareStatement(SQL.SELECT_COUNT_HP);
 			pst.setString(1, hp);
@@ -115,17 +97,14 @@ public class UserDao extends DBHelper{
 				 result = rs.getInt(1);
 			}
 			
-			conn.close();
-			pst.close();
-			rs.close();
+			close();
 		}catch(Exception e){
 			e.printStackTrace();
 		}
 		return result;
 	}
 	
-	public void insertUser(UserVo vo) {
-		
+	public void insertUser(UserVo vo) {	
 		int result = 0;
 		try{
 		conn = getConeecition();

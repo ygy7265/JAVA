@@ -24,6 +24,7 @@ $(function(){
 			data: jsonData,
 			dataType:'json',
 			success:function(data){
+				console.log(data);
 				if(data.result >= 1){
 					$('.resultId').css('color', 'red').text('이미 사용중인 아이디 입니다.');
 					isUidOk = false;
@@ -55,7 +56,7 @@ $(function(){
 		
 		// 데이터 전송
 		$.get('/Jboard/user/checkUser.jsp', jsonData, function(data){
-			
+			console.log(data);
 			if(data.result >= 1){
 				$('.resultNick').css('color', 'red').text('이미 사용중인 별명 입니다.');
 				isNickOk = false;
@@ -92,7 +93,7 @@ $(function(){
 			if(xhr.readyState == XMLHttpRequest.DONE){						
 				if(xhr.status == 200){
 					const data = JSON.parse(xhr.response);
-					console.log('data : ' + data);
+					console.log(data);
 					
 					if(data.result >= 1){
 						resultEmail.innerText = '이미 사용중인 이메일 입니다.';

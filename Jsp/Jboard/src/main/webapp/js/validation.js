@@ -23,13 +23,13 @@
     	//Password Check
     	$('input[name=pass2]').focusout(function(){
     		
-    		const pass1 = $('input[name=pass1]').val();
+    		const pass1 = $('input[name=pass]').val();
     		const pass2 = $('input[name=pass2]').val();
     		
     		if(pass1 == pass2){
     			isPassOk = true;
     			$('.resultpass').text('');
-    		/*	if(pass1.match(rePass)){
+    			if(pass1.match(rePass)){
     				$('.resultpass').css('color','blue').text('Password OK');
         			
     			}else if(pass2 == ''){
@@ -39,7 +39,7 @@
     				$('.resultpass').css('color','red').text('Password Error');
         			isPassOk = false;
     			}
-    			*/
+    			
     			
     		}else{
     			$('.resultpass').css('color','red').text('Password not match');

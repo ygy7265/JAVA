@@ -35,14 +35,14 @@
         </header>
         <main>
             <section class="login">
-                <form action="/Jboard/user/loginProc.jsp" method="post">
+                <form action="/Jboard/proc/Proc.jsp?num=1" method="post">
                     <table>
                         <tr>
-                            <td><img src="./images/login_ico_id.png" alt="id"></td>
+                            <td><img src="/Jboard/images/login_ico_id.png" alt="id"></td>
                             <td><input type="text" name="uid" placeholder="ID ADD"></td>
                         </tr>
                         <tr>
-                            <td><img src="./images/login_ico_pw.png" alt="pw"></td>
+                            <td><img src="/Jboard/images/login_ico_pw.png" alt="pw"></td>
                             <td><input type="password" name="pass" placeholder="PASSWORD ADD"></td>
                         </tr>
                     </table>
