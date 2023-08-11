@@ -11,8 +11,10 @@
 <%@ page contentType="text/html;charset=UTF-8" pageEncoding="UTF-8"%>
 <%
 
-	//loginProc
+	//Parameter
+	request.setCharacterEncoding("UTF-8");
 	String num =  request.getParameter("num");
+	String no =  request.getParameter("no");
 	String uid = request.getParameter("uid");
 	String pass = request.getParameter("pass");
 	String pass2 = request.getParameter("pass2");
@@ -26,9 +28,12 @@
 	String title = request.getParameter("title");
 	String writer = request.getParameter("write");
 	String content = request.getParameter("content");
+	String minicontent = request.getParameter("minicontent");
+	String parent = request.getParameter("parent");
 	String regip = request.getRemoteAddr();
 	UserVo vo = new UserVo();
 	
+	//login
 	if(num.equals("1")){
 	vo = UserDao.getInstance().selectUsers(uid, pass);
 	if(vo != null){
@@ -70,6 +75,31 @@
 		dao.insertAticle(artVo);
 		response.sendRedirect("/Jboard/list.jsp");
 	}
+	
+	//miniContentProc
+		if(num.equals("4")){
+			ArticleVo artVo = new ArticleVo();
+			
+			artVo.setParent(parent);
+			artVo.setContent(minicontent);
+			artVo.setWriter(writer);
+			artVo.setRegip(regip);
+			
+			ArticleDAO dao = new ArticleDAO();
+			dao.insertComment(artVo);
+			dao.updateArticleForComment(parent);
+			response.sendRedirect("/Jboard/view.jsp?no="+parent);
+		}
+	
+	//miniComtentDelete
+		if(num.equals("5")){
+			ArticleDAO dao = new ArticleDAO();
+			dao.deleteComment(no);
+			
+			response.sendRedirect("/Jboard/view.jsp?no="+parent);
+			
+			
+		}
 	
 	
 %>

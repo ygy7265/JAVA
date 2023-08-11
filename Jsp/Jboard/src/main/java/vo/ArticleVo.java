@@ -12,6 +12,13 @@ public class ArticleVo {
 	private String writer;
 	private String regip;
 	private String rdate;
+	private String Nick;
+	public String getNick() {
+		return Nick;
+	}
+	public void setNick(String nick) {
+		Nick = nick;
+	}
 	public int getNo() {
 		return no;
 	}
@@ -23,6 +30,9 @@ public class ArticleVo {
 	}
 	public void setParent(int parent) {
 		this.parent = parent;
+	}
+	public void setParent(String parent) {
+		this.parent = Integer.parseInt(parent);
 	}
 	public int getComment() {
 		return comment;
