@@ -19,7 +19,7 @@ header {
     position: relative;
     width: 100%;
     height: auto;
-    background-image: url('/FarmStory//images/admin_bg.jpg');
+    background-image: url('/FarmStory/admin/images/admin_bg.jpg');
     padding: 12px;
     box-sizing: border-box;
 }
@@ -377,7 +377,7 @@ footer > p {
     top: 10px;
     width: 16px;
     height: 16px;
-    background-image: url('/FarmStory/images//btnClose.gif');
+    background-image: url('/FarmStory/admin/images/btnClose.gif');
     background-size: 16px;
     font-size: 0;
     border: 0;

@@ -2,7 +2,7 @@
 <%@ include file="../_header.jsp" %>
         <div id="user">
           <section id="user" class="register">
-           	<form id ='formuser'action="/FarmStory/Proc/Proc.jsp" method="post">
+           	<form id ='formuser'action="/FarmStory/proc/Proc.jsp?num=2" method="post">
              <table border="1">
                <caption>Site UsingInformatin ADD</caption>
                <tr>

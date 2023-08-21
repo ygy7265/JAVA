@@ -22,8 +22,7 @@
        	}) 
 	});
 	</script>
-<%
-			
+<%		
 		String terms = "";
 		String terms2 = "";
 	try{
@@ -35,7 +34,7 @@
 		
 		Statement st = conn.createStatement();
 		
-		ResultSet rs = st.executeQuery("select * from `terms`");
+		ResultSet rs = st.executeQuery("select * from `Terms`");
 		
 		
 		if(rs.next()){

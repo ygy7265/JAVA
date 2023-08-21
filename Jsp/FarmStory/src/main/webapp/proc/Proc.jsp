@@ -9,7 +9,7 @@
 	String num = request.getParameter("num");
 	String cate = request.getParameter("cate");
 	String group = request.getParameter("group");
-	
+	UserDTO UserSession =(UserDTO) session.getAttribute("sessUser");
 	//User
 	String uid = request.getParameter("uid");
 	String pass = request.getParameter("pass");
@@ -24,12 +24,13 @@
 	String regip = request.getRemoteAddr();
 	String Userlogout = request.getParameter("logout");
 	
-	//article
+	//Article
 	String no = request.getParameter("no");
 	String parent = request.getParameter("parent");
 	String comment = request.getParameter("comment");
 	String title = request.getParameter("title");
 	String content = request.getParameter("content");
+	String minicontent = request.getParameter("minicontent");
 	String file = request.getParameter("file");
 	String hit = request.getParameter("hit");
 	String writer = request.getParameter("writer");
@@ -50,7 +51,7 @@
 			session.setAttribute("sessUser", dto);
 			response.sendRedirect("/FarmStory/");
 		}else{
-			response.sendRedirect("/FarmStory/user/login.jsp?sucess=102");
+			response.sendRedirect("/FarmStory/user/login.jsp?success=102");
 		}
 		
 		
@@ -90,10 +91,33 @@
 		ardto.setRdate(rdate);
 		
 		ardao.InsertArticle(ardto);
+		response.sendRedirect("/FarmStory/board/list.jsp?group="+group+"&cate="+cate);
+	}
+	
+	if(num.equals("6")){
+		ardao.DeleteView(no);
+		response.sendRedirect("/FarmStory/board/list.jsp?group="+group+"&cate="+cate);
+	}
+	//Comment
+	if(num.equals("4")){
+		if(UserSession == null){
+			response.sendRedirect("/FarmStory/board/list.jsp?success=101&group="+group+"&cate="+cate);
+			return;
+		}
+		ardto.setParent(parent);
+		ardto.setContent(minicontent);
+		ardto.setWriter(writer);
+		ardto.setCate(cate);
+		ardto.setRegip(regip);
+		ardto.setRdate(rdate);
 		
-		out.print("Test");
+		ardao.InsertArticleComment(ardto);
 		response.sendRedirect("/FarmStory/board/list.jsp?group="+group+"&cate="+cate);
 		
-		}
+	}
+	if(num.equals("5")){
+		ardao.DeleteComment(no);
+		response.sendRedirect("/FarmStory/board/list.jsp?group="+group+"&cate="+cate);
+	}
 	
 %>

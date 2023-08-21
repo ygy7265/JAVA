@@ -8,12 +8,6 @@
 	
 %>
 
-<script>
-const su = <%= sucessUser %>;
-	if(su == 102){
-		alert('Login Failed..');
-	}
-</script>
 <div id="user">
     <section class="login">
         <form action="/FarmStory/proc/Proc.jsp?num=1" method="post">

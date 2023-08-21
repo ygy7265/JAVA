@@ -1,22 +1,24 @@
 <%@page import="DTO.UserDTO"%>
 <%@ page contentType="text/html;charset=UTF-8" pageEncoding="UTF-8"%>
-
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <title>팜스토리</title>
     <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.css"/>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/bxslider/4.2.12/jquery.bxslider.css"/>
-    
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/bxslider/4.2.12/jquery.bxslider.css"/>    
     <link rel="stylesheet" href="/FarmStory/css/style.css"/>
     <link rel="stylesheet" href="/FarmStory/user/css/style.css"/>
-    
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
     <script src="https://cdn.jsdelivr.net/bxslider/4.2.12/jquery.bxslider.min.js"></script>    
-    <script>
+
+	<%
+	String successUser =  request.getParameter("success"); 
+	UserDTO UserSession =(UserDTO) session.getAttribute("sessUser");
+	%>
+	
+	    <script>
         $(function(){
             $('.slider > ul').bxSlider({
                 slideWidth: 980,
@@ -27,12 +29,16 @@
 
             $('#tabs').tabs();
         });
+        
+        const success = <%= successUser %>
+        
+        if(success == 101){
+        	alert('LoginPlease..');
+        	location.href = "/FarmStory/user/login.jsp";
+        }else if(success == 102){
+        	alert('ID and pwd Cheak..');
+        }
     </script>
-	<%
-	String sucessUser =  request.getParameter("sucess"); 
-	UserDTO UserSession =(UserDTO) session.getAttribute("sessUser");
-	HttpSession session1 = request.getSession();
-	%>
 </head>
 <body>
     <div id="container">
@@ -40,10 +46,6 @@
             <a href="/FarmStory" class="logo"><img src="/FarmStory/images/logo.png" alt="로고"/></a>
             <p>
                 <a href="/FarmStory/index.jsp">HOME |</a>
-                <script type="text/javascript">
-                	const session = <%=session1%>;
-                	console.log(session);
-                </script>
               <% if (UserSession == null) { %>
 				    <!-- 사용자가 로그인하지 않은 경우 -->
 				    <a href="/FarmStory/user/login.jsp?num=1">로그인 |</a>

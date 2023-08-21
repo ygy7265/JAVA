@@ -9,6 +9,7 @@
 	String pg = request.getParameter("pg");
 	
 	ArticleDAO dao = new ArticleDAO();
+	
 	//Page
 	int start = 0;
 	int pageStartNum = 0;
@@ -75,7 +76,7 @@
                   <% for(ArticleVo article : list){ %>
                   <tr>
                       <td><%=pageStartNum-- %></td>
-                      <td><a href="/Jboard/view.jsp?no=<%=article.getNo()%>"><%=article.getTitle() %></a>&nbsp;[<%=article.getComment() %>]</td>
+                      <td><a href="/Jboard/view.jsp?no=<%=article.getNo()%>"><%=article.getTitle() %></a>&nbsp;[2]</td>
                       <td><%=article.getNick() %></td>
                       <td><%=article.getRdate() %></td>
                       <td><%=article.getHit() %></td>

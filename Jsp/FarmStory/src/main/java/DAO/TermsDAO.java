@@ -3,6 +3,7 @@ package DAO;
 import java.sql.SQLException;
 
 import DB.DBHellper;
+import DB.SQL;
 import DTO.TermsDTO;
 
 public class TermsDAO extends DBHellper{
@@ -13,7 +14,7 @@ public class TermsDAO extends DBHellper{
 			
 			conn = getConnection();
 			st = conn.createStatement();
-			rs = st.executeQuery("SELECT * FROM `terms`");
+			rs = st.executeQuery(SQL.SELECT_TERMS);
 			if(rs.next()) {
 				dto = new TermsDTO();
 				dto.setTerms1(rs.getString(1));

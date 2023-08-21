@@ -27,7 +27,7 @@
 			vo2.setName(rs.getString(2));
 			vo2.setHp(rs.getString(3));
 			vo2.setPos(rs.getString(4));
-			vo2.setDep(rs.getString(5));
+			//vo2.setDep(rs.getString(5));
 			vo2.setRdate(rs.getString(6));
 			listvo.add(vo2);
 		}

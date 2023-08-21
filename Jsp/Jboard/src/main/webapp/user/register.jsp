@@ -29,7 +29,7 @@
         </header>
         <main>
           <section id="user" class="register">
-           	<form id ='formuser'action="./Jboard/proc/Proc.jsp?num=2" method="post">
+           	<form id ='formuser'action="/Jboard/proc/Proc.jsp?num=2" method="post">
              <table border="1">
                <caption>Site UsingInformatin ADD</caption>
                <tr>

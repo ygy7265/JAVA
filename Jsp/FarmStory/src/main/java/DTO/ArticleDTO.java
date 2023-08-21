@@ -2,7 +2,7 @@ package DTO;
 
 public class ArticleDTO {
 	private int no;
-	private int parent;
+	private String parent;
 	private int comment;
 	private String cate;
 	private String title;
@@ -18,10 +18,10 @@ public class ArticleDTO {
 	public void setNo(int no) {
 		this.no = no;
 	}
-	public int getParent() {
+	public String getParent() {
 		return parent;
 	}
-	public void setParent(int parent) {
+	public void setParent(String parent) {
 		this.parent = parent;
 	}
 	public int getComment() {
