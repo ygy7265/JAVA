@@ -9,8 +9,6 @@
 		<h3>1.FileUpload Practice</h3>
 		
 		<form action="./upload/fileupload.jsp" method="post" enctype = "multipart/form-data">
-			<input type = "text" name = "uid"><br>
-			<input type = "text" name = "name"><br>
 			<input type = "file" name = "file"><br>
 		<input type = "submit">
 		</form>

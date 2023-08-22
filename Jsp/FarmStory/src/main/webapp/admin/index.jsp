@@ -1,6 +1,18 @@
+<%@page import="DTO.ProductDTO"%>
+<%@page import="DAO.ProductDAO"%>
+<%@page import="java.util.List"%>
+<%@page import="DAO.UserDAO"%>
 <%@ page contentType="text/html;charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ include file="./_header.jsp" %>
-<%@ include file="./_aside.jsp" %>         
+<%@ include file="./_aside.jsp" %> 
+<%
+	UserDAO dao = UserDAO.getInstance();
+	ProductDAO pdao = new ProductDAO();
+	List<UserDTO> userdto = dao.UesrList();
+	List<ProductDTO> proddto = pdao.selectProducts();
+	
+	
+%>      
 <section>
     <nav>
         <h3>관리자 메인</h3>
@@ -20,30 +32,28 @@
                 <th>재고</th>
                 <th>등록일</th>
             </tr>
+            <%for(ProductDTO dto : proddto){ %>
             <tr>
-                <td>1011</td>
-                <td>사과 500g</td>
-                <td>과일</td>
-                <td>4,000원</td>
-                <td>100</td>
-                <td>2023-01-01</td>
-            </tr>
-            <tr>
-                <td>1011</td>
-                <td>사과 500g</td>
-                <td>과일</td>
-                <td>4,000원</td>
-                <td>100</td>
-                <td>2023-01-01</td>
-            </tr>
-            <tr>
-                <td>1011</td>
-                <td>사과 500g</td>
-                <td>과일</td>
-                <td>4,000원</td>
-                <td>100</td>
-                <td>2023-01-01</td>
-            </tr>                        
+                <td><%=dto.getPno() %></td>
+                <td><%=dto.getpName() %></td>
+                <td>
+                <%switch(dto.getType()){
+                case 1:%>
+                과일
+                <% break;
+                case 2:
+                %>
+                야채
+                <%break;
+                case 3:
+                %>
+                기타
+                <%break; }%>
+                </td>
+                <td><%=dto.getPrice() %></td>
+                <td><%=dto.getStock() %></td>
+                <td><%=dto.getRdate() %></td>
+             <%} %>                      
         </table>
     </article>
 
@@ -110,33 +120,18 @@
                 <th>등급</th>
                 <th>회원가입일</th>
             </tr>
+            
+            <%for(UserDTO list : userdto){ %>
             <tr>
-                <td>a101</td>
-                <td>김유신</td>
-                <td>유신123</td>
-                <td>010-1234-1001</td>
-                <td>yusin123@naver.com</td>
-                <td>2</td>
-                <td>2023-01-01</td>
+                <td><%=list.getUid() %></td>
+                <td><%=list.getName() %></td>
+                <td><%=list.getNick() %></td>
+                <td><%=list.getHp() %></td>
+                <td><%=list.getEmail() %></td>
+                <td><%=list.getRole() %></td>
+                <td><%=list.getRegDate() %></td>
             </tr>
-            <tr>
-                <td>a101</td>
-                <td>김유신</td>
-                <td>유신123</td>
-                <td>010-1234-1001</td>
-                <td>yusin123@naver.com</td>
-                <td>2</td>
-                <td>2023-01-01</td>
-            </tr>
-            <tr>
-                <td>a101</td>
-                <td>김유신</td>
-                <td>유신123</td>
-                <td>010-1234-1001</td>
-                <td>yusin123@naver.com</td>
-                <td>2</td>
-                <td>2023-01-01</td>
-            </tr>                        
+             <%} %>                 
         </table>
     </article>
 </section>

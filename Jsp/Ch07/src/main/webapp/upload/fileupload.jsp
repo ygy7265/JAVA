@@ -10,25 +10,27 @@
 <%@ page contentType="text/html;charset=UTF-8" pageEncoding="UTF-8"%>
 <%
 	request.setCharacterEncoding("UTF-8");
-	
+	//저장할폴더경로
 	String path = application.getRealPath("/upload");
 	int maxSize = 1024 * 1024 * 10;
 	MultipartRequest mr = new MultipartRequest(request,path,maxSize,"UTF-8",new DefaultFileRenamePolicy());
-	String uid = mr.getParameter("uid");
-	String name = mr.getParameter("name");
+	//파일파라미터이름
 	String file = mr.getFilesystemName("file");
 	
-	
 	//파일명수정
+	//확장자 파싱
 	int i = file.lastIndexOf(".");
 	String ext = file.substring(i);
-	System.out.println("ext = " + ext);
-	
+	//파일 고유이름만들기
 	String uuid = UUID.randomUUID().toString();
+	//고유이름에 확장자붙이기
 	String sName = uuid+ext;
 	
+	//경로에 저장해준 파일이름으로 새로운객체생성
 	File f1 = new File(path+"/"+file);
+	//고유한이름으로 바꿔줄 객체생성
 	File f2 = new File(path+"/"+sName);
+	//파일이름변경
 	f1.renameTo(f2);
 	
 	Context ctx = (Context)new InitialContext().lookup("java:comp/env");
@@ -51,7 +53,5 @@
 	//원본 파일명 INSERT
 	
 	response.sendRedirect("../2_FileDownload.jsp");
-	System.out.println("uid = " + uid);
-	System.out.println("name = " + name);
 	System.out.println("file = " + file);
 %>

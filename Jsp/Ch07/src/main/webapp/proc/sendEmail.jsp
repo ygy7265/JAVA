@@ -36,15 +36,14 @@
 	Message message = new MimeMessage(gmailsession);
 	
 	try{
-		message.setFrom(new InternetAddress(sender,"보보","UTF-8"));
+		message.setFrom(new InternetAddress(sender,"보보","UTF-8")); //보내는사람
 		message.addRecipient(Message.RecipientType.TO, new InternetAddress(receiver));
-		message.setSubject(title);
-		message.setContent(content,"text/html;charset=UTF-8");
-		Transport.send(message);
+		message.setSubject(title); //보낼제목
+		message.setContent(content,"text/html;charset=UTF-8"); //내용
+		Transport.send(message); //보내기
 	}catch(Exception e){
 		e.printStackTrace();
 	}
 	
 	response.sendRedirect("../3_MailTest.jsp?success=200");
-	
 %>

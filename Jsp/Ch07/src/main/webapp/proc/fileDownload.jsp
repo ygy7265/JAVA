@@ -46,11 +46,12 @@
 	}
 	//다운로드 헤더
 	response.setContentType("application/octet-stream");
+	//파일이름
 	response.setHeader("Content-Disposition", "attachment; filename="+URLEncoder.encode(dto.getoName(), "utf-8"));
 	response.setHeader("Content-Transfer-Encoding", "binary");
 	response.setHeader("Pragma", "no-cache");
 	response.setHeader("Cache-Control", "private");
-	
+	//파일을 불러올경로
 	String path = application.getRealPath("/upload");
 	File file = new File(path+"/"+dto.getsName());
 	
@@ -58,11 +59,12 @@
 	BufferedOutputStream bos = new BufferedOutputStream(response.getOutputStream());
 	
 	while(true){
+		//파일경로읽기
 		int data = bis.read();
 		if(data == -1){
 			break;
 		}
-		
+		//생성
 		bos.write(data);
 	}
 	bos.close();

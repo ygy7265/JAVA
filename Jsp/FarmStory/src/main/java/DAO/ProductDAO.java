@@ -1,6 +1,7 @@
 package DAO;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 import DB.DBHellper;
@@ -34,8 +35,41 @@ public class ProductDAO extends DBHellper{
 		return null;
 	}
 	public List<ProductDTO> selectProducts() {
-		return null;
+		List<ProductDTO> list = new ArrayList<>();
+		ProductDTO dto = null;
+		conn = getConnection();
+		try {
+			st = conn.createStatement();
+			rs = st.executeQuery(SQL.SELECT_PRODUCT_LIST);
+			
+			while(rs.next()) {
+				 dto = new ProductDTO();
+				 dto.setPno(rs.getInt(1));
+				 dto.setType(rs.getInt(2));
+				 dto.setpName(rs.getString(3));
+				 dto.setPrice(rs.getString(4));
+				 dto.setDelivery(rs.getString(5));
+				 dto.setStock(rs.getInt(6));
+				 dto.setSold(rs.getInt(7));
+				 dto.setThumb1(rs.getString(8));
+				 dto.setThumb2(rs.getString(9));
+				 dto.setThumb3(rs.getString(10));
+				 dto.setSeller(rs.getString(11));
+				 dto.setEtc(rs.getString(12));
+				 dto.setRdate(rs.getString(13));
+				 
+				 list.add(dto);
+			}
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return list;
+		
 	}
 	public void updateproduct(ProductDTO dto) {}
 	public void deleteproduct(int pNo) {}
+
 }

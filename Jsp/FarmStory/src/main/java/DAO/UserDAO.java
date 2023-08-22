@@ -1,6 +1,8 @@
 package DAO;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 import DB.DBHellper;
 import DB.SQL;
@@ -63,5 +65,38 @@ public class UserDAO extends DBHellper{
 			e.printStackTrace();
 		}
 		return dto;
+	}
+	
+	public List<UserDTO> UesrList() {
+		UserDTO dto = null;
+		List<UserDTO> list = new ArrayList<>();
+		conn = getConnection();
+		try {
+			st = conn.createStatement();
+			rs = st.executeQuery(SQL.SELECT_USER_LIST);
+			
+			while(rs.next()) {
+				dto = new UserDTO();
+				dto.setUid(rs.getString(1));
+				dto.setPass(rs.getString(2));
+				dto.setName(rs.getString(3));
+				dto.setNick(rs.getString(4));
+				dto.setEmail(rs.getString(5));
+				dto.setHp(rs.getString(6));
+				dto.setRole(rs.getString(7));
+				dto.setZip(rs.getString(8));
+				dto.setAddr1(rs.getString(9));
+				dto.setAddr2(rs.getString(10));
+				dto.setRegip(rs.getString(11));
+				dto.setRegDate(rs.getString(12));
+				dto.setLeaveDate(rs.getString(13));
+				
+				list.add(dto);
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return list;
 	}
 }

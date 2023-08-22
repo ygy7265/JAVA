@@ -32,5 +32,6 @@ public final static String INSERT_PRODUCT = "INSERT INTO `Product` SET "
 											+ "etc = ?,"
 											+ "rdate = NOW()";
 
-
+public final static String SELECT_USER_LIST = "SELECT * FROM `User`";
+public final static String SELECT_PRODUCT_LIST = "SELECT * FROM `Product`";
 }
