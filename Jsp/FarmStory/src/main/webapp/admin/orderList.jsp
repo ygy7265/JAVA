@@ -1,4 +1,22 @@
+<%@page import="com.fasterxml.jackson.databind.ObjectMapper"%>
+<%@page import="java.util.HashMap"%>
+<%@page import="java.util.Map"%>
+<%@page import="java.util.ArrayList"%>
+<%@page import="java.util.List"%>
+<%@page import="DTO.OrderDTO"%>
+<%@page import="DAO.OrderDAO"%>
 <%@ page contentType="text/html;charset=UTF-8" pageEncoding="UTF-8"%>
+
+<%
+	OrderDAO dao = new OrderDAO();
+	List<OrderDTO> list = new ArrayList<>(); 
+	list = dao.orderSelectProducts();
+%>
+
+<script>
+
+</script>
+
 <%@ include file="./_header.jsp" %>
 <%@ include file="./_aside.jsp" %>
             <section id="orderList">
@@ -21,18 +39,28 @@
                             <th>주문일</th>
                             <th>확인</th>
                         </tr>
+                      
+                        <%for(OrderDTO orderlist : list){ 
+                        	
+                        %>
                         <tr>
                             <td><input type="checkbox" name=""/></td>
-                            <td>1001</td>
-                            <td>사과 500g</td>                            
-                            <td>4,000원</td>
-                            <td>2</td>
-                            <td>3,000원</td>
-                            <td>11,000원</td>
-                            <td>김유신</td>
-                            <td>2023-01-01 13:06:14</td>
-                            <td><a href="#" class="showPopup">[상세확인]</a></td>
+                            <td><%=orderlist.getOrderNo() %></td>
+                            <td><%=orderlist.getOrderpName() %></td>                            
+                            <td><%=orderlist.getOrderPrice() %>원</td>
+                            <td><%=orderlist.getOrderCount() %></td>
+                            <td><%=orderlist.getOrderDelivery() %>원</td>
+                            <td><%=orderlist.getOrderTotal() %>원</td>
+                            <td><%=orderlist.getOrderUser() %></td>
+                            <td><%=orderlist.getOrderDate() %></td>
+                            <td>
+                            <a href="#" class="showPopup"                      
+                            data-order=<%=orderlist %>
+                            data-thumb=<%=orderlist.getThumb1() %>
+                            >[상세확인]</a>
+                            </td>
                         </tr>
+                        <%} %>
                     </table>
 
                     <p>
@@ -57,39 +85,72 @@
                     <h1>상세주문내역</h1>
                     <button class="btnClose">닫기</button>
                 </nav>
+				<script>
+				$(function(){
 
+				    $('.showPopup').click(function(e){
+				    
+				    	var orderlist = $(this).data('order');
+				    	var thumb = $(this).data('thumb');
+				    	var orlist = JSON.parse(orderlist+'"}');
+						console.log(orlist);
+						console.log(thumb);
+				    	$('.num').text(orlist.orderNo);
+				    	$('.name').text(orlist.orderProduct);
+				    	$('.price').text(orlist.orderPrice);
+				    	$('.count').text(orlist.orderNo);
+				    	$('.delivery').text(orlist.orderDelivery);
+				    	$('.total').text(orlist.orderTotal);
+				    	$('.user').text(orlist.orderUser);
+				    	$('.img').attr("src","/FarmStory/images/"+thumb);
+				 
+				        e.preventDefault();
+
+				        $('#orderPopup').show();
+				    });
+
+				    $('#orderPopup .btnClose').click(function(){
+				        $('#orderPopup').hide();
+				    });
+
+				});
+				</script>
+				
+				
                 <article>  
                     <h3>기본정보</h3>
                     <table border="0">
+                  
                         <tr>
-                            <td rowspan="7" class="thumb"><img src="./images//sample_item1.jpg" alt="사과 500g"></td>
+                            <td rowspan="7" class="thumb"><img class="img" alt="사과 500g"></td>
                             <td>상품번호</td>
-                            <td>1011</td>
+                            <td class="num"></td>
                         </tr>
                         <tr>
                             <td>상품명</td>
-                            <td>사과 500g</td>
+                            <td class="name"></td>
                         </tr>
                         <tr>
                             <td>판매가격</td>
-                            <td>4,000원</td>
+                            <td class="price">원</td>
                         </tr>
                         <tr>
                             <td>수량</td>
-                            <td>2개</td>
+                            <td class="count">개</td>
                         </tr>
                         <tr>
                             <td>배송비</td>
-                            <td>3,000원</td>
+                            <td class="delivery">원</td>
                         </tr>
                         <tr>
                             <td>합계</td>
-                            <td>11,000원</td>
+                            <td class="total">원</td>
                         </tr>
                         <tr>
                             <td>주문자</td>
-                            <td>홍길동</td>
-                        </tr>                        
+                            <td class="user"></td>
+                        </tr> 
+                                        
                     </table>
 
                     <h3>배송지 정보</h3>

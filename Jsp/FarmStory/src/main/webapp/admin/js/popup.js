@@ -10,16 +10,3 @@
             });
 
         });
-        
-           $(function(){
-
-            $('.showPopup').click(function(e){
-                e.preventDefault();
-                $('#orderPopup').show();
-            });
-
-            $('#orderPopup .btnClose').click(function(){
-                $('#orderPopup').hide();
-            });
-
-        });

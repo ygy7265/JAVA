@@ -9,7 +9,8 @@
 	UserDAO dao = UserDAO.getInstance();
 	ProductDAO pdao = new ProductDAO();
 	List<UserDTO> userdto = dao.UesrList();
-	List<ProductDTO> proddto = pdao.selectProducts();
+	String type = null;
+	List<ProductDTO> proddto = pdao.selectProductsadmin();
 	
 	
 %>      

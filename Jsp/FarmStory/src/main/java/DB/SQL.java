@@ -34,4 +34,29 @@ public final static String INSERT_PRODUCT = "INSERT INTO `Product` SET "
 
 public final static String SELECT_USER_LIST = "SELECT * FROM `User`";
 public final static String SELECT_PRODUCT_LIST = "SELECT * FROM `Product`";
+public final static String SELECT_PRODUCT_LIST_VIEW = "SELECT * FROM `Product` where `pNo` = ?";
+public final static String SELECT_PRODUCT_LIST_TYPE = "SELECT * FROM `Product` WHERE `stock` > 1 AND (? IS NULL OR `type` = 0 OR `type` = ?) order BY `pNo` desc LIMIT ?,10";
+public final static String SELECT_PRODUCT_LIST_COUNT = "SELECT COUNT(*) FROM `Product` where `stock` > 1 AND (? IS NULL OR `type` = ?)";
+
+//Order
+public final static String INSERT_ORDER = "INSERT INTO `Order` SET "
+		+ "orderProduct = ?,"
+		+ "orderCount = ?,"
+		+ "orderDelivery= ?,"
+		+ "orderPrice = ?,"
+		+ "orderTotal = ?,"
+		+ "orderUser = ?,"
+		+ "orderDate = NOW()";		
+public final static String SELECT_ORDER_LIST = "SELECT * FROM `Order` AS a JOIN `Product` AS b ON a.orderProduct = b.pNo";
+public final static String SELECT_ORDER_LIST_VIEW = "SELECT * FROM `Order` AS a JOIN `Product` AS b ON a.orderProduct = b.pNo where `orderNo` = ?";
+
+
+public static final String SELECT_ORDERS = "SELECT "
+											+ "a.*,"
+											+ "b.`pName`,"
+											+ "b.`thumb1` "
+											+ "FROM `Order` AS a "
+											+ "JOIN `Product` AS b "
+											+ "ON a.orderProduct = b.pNo ";
+											
 }

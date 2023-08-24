@@ -1,5 +1,7 @@
 package DTO;
 
+import java.text.DecimalFormat;
+
 public class ProductDTO {
 	private int pno;
 	private int type;
@@ -43,6 +45,11 @@ public class ProductDTO {
 	}
 	public void setPrice(String price) {
 		this.price = Integer.parseInt(price);
+	}
+	
+	public String getPrecieWithComma() {
+		DecimalFormat df = new DecimalFormat("###,###");
+		return  df.format(price);
 	}
 	public int getDelivery() {
 		return delivery;

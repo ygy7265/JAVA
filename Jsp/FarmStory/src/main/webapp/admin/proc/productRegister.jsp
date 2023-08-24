@@ -14,7 +14,7 @@
 <%@ page contentType="text/html;charset=UTF-8" pageEncoding="UTF-8"%>
 <%
 request.setCharacterEncoding("UTF-8");
-String path = application.getRealPath("/upload");
+String path = application.getRealPath("/thumb");
 int maxSize = 1024 * 1024 * 10;
 MultipartRequest mr = new MultipartRequest(request,path,maxSize,"UTF-8",new DefaultFileRenamePolicy());
 String mrthumb1 = mr.getOriginalFileName("thumb1");
@@ -45,8 +45,8 @@ File f4 = new File(path+"/"+sName1);
 File f5 = new File(path+"/"+sName2);
 File f6 = new File(path+"/"+sName3);
 f1.renameTo(f4);
-f1.renameTo(f5);
-f1.renameTo(f6);
+f2.renameTo(f5);
+f3.renameTo(f6);
 
 	String productName = mr.getParameter("productName");
 	String type = mr.getParameter("type");

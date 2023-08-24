@@ -1,5 +1,11 @@
 <%@page import="DTO.UserDTO"%>
 <%@ page contentType="text/html;charset=UTF-8" pageEncoding="UTF-8"%>
+
+	<%
+	String successUser =  request.getParameter("success"); 
+	UserDTO UserSession =(UserDTO) session.getAttribute("sessUser");
+	
+	%>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -13,10 +19,6 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
     <script src="https://cdn.jsdelivr.net/bxslider/4.2.12/jquery.bxslider.min.js"></script>    
 
-	<%
-	String successUser =  request.getParameter("success"); 
-	UserDTO UserSession =(UserDTO) session.getAttribute("sessUser");
-	%>
 	
 	    <script>
         $(function(){
@@ -43,7 +45,7 @@
 <body>
     <div id="container">
         <header>
-            <a href="/FarmStory" class="logo"><img src="/FarmStory/images/logo.png" alt="로고"/></a>
+            <a href="/FarmStory/" class="logo"><img src="/FarmStory/images/logo.png" alt="로고"/></a>
             <p>
                 <a href="/FarmStory/index.jsp">HOME |</a>
               <% if (UserSession == null) { %>

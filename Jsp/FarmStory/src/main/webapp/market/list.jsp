@@ -1,5 +1,58 @@
+<%@page import="DTO.ProductDTO"%>
+<%@page import="java.util.List"%>
+<%@page import="DAO.ProductDAO"%>
 <%@ page contentType="text/html;charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ include file="../_header.jsp" %>
+<%
+	request.setCharacterEncoding("UTF-8");
+	String type = request.getParameter("type");
+	String pg = request.getParameter("pg");
+	ProductDAO dao = new ProductDAO();
+	
+	
+	int pageStart = 0;
+	int pageStartNum = 0;
+	int pageEnd = 0;
+	int currentPage = 1;
+	int pageGroupCurrent = 1;
+	int pageGroupStart = 1;
+	int pageGroupEnd = 0;
+	int total = 0;
+	int parsetype = 0;
+	
+	
+	if(pg != null){
+		currentPage = Integer.parseInt(pg);
+	}
+	
+	
+	 if(type != null){
+		 if(type.equals("null")){
+			type = null; 
+		 }
+		 else{
+			 parsetype = Integer.parseInt(type);
+		 }
+	 }
+	pageStart = (currentPage - 1) * 10;	
+	total = dao.selectCountProductTotal(type);
+	if(total % 10 == 0){
+		pageEnd = (total / 10);
+	}else{
+		pageEnd = (total / 10) + 1;
+	}
+	
+	pageGroupCurrent = (int)Math.ceil(currentPage / 10.0);
+	pageGroupStart = (pageGroupCurrent - 1) * 10 + 1;
+	pageGroupEnd = pageGroupCurrent * 10;
+	
+	if(pageGroupEnd > pageEnd){
+		pageGroupEnd = pageEnd;
+	}
+	
+	pageStartNum = total - pageStart;
+	List<ProductDTO> prodlist = dao.selectProducts(type,pageStart);
+%>
 <div id="sub">
     <div><img src="../images/sub_top_tit2.png" alt="MARKET"></div>
     <section class="market">
@@ -17,89 +70,49 @@
                     HOME > 장보기 > <em>장보기</em>
                 </p>
             </nav>
-
+			
+				 <%
+				 
+				 %>
+			
+	
             <!-- 내용 시작 -->
             <p class="sort">
-                <a href="#" class="on">전체(10) |</a>
-                <a href="#">과일 |</a>
-                <a href="#">야채 |</a>
-                <a href="#">곡류</a>
+                <a href="/FarmStory/market/list.jsp?type=null&pg=1" class=<%=type == null?"on":""%>>전체[<%=total %>] |</a>
+                <a href="/FarmStory/market/list.jsp?type=1&pg=1" class=<%=parsetype == 1?"on":""%>>과일 |</a>
+                <a href="/FarmStory/market/list.jsp?type=2&pg=1" class=<%=parsetype == 2?"on":""%>>야채 |</a>
+                <a href="/FarmStory/market/list.jsp?type=3&pg=1" class=<%=parsetype == 3?"on":""%>>곡류</a>
             </p>
             <table border="0">
+            	
+            	<%for(ProductDTO list : prodlist){ %>
                 <tr>
                     <td>
-                        <a href="./view.jsp"><img src="../images/market_item1.jpg" alt="사과 500g"></a>
+                        <a href="./view.jsp?pNo=<%=list.getPno()%>"><img src="/FarmStory/images/<%=list.getThumb1() %>" alt="사과 500g"></a>
                     </td>
-                    <td>과일</td>
-                    <td><a href="#">사과 500g</a></td>
-                    <td><strong>4,000</strong>원</td>
-                </tr>
-                <tr>
                     <td>
-                        <a href="./view.jsp"><img src="../images/market_item2.jpg" alt="배 5kg"></a>
+                    <%switch(list.getType()){
+                    case 1: out.print("과일"); break;
+                    case 2: out.print("야채"); break;
+                    case 3: out.print("곡물"); break;
+                    }%>
                     </td>
-                    <td>과일</td>
-                    <td><a href="#">배 5kg</a></td>
-                    <td><strong>30,000</strong>원</td>
+                    <td><a href="./view.jsp?pNo=<%=list.getPno()%>"><%=list.getpName() %></a></td>
+                    <td><strong><%=list.getPrecieWithComma() %></strong>원</td>
                 </tr>
-                <tr>
-                    <td>
-                        <a href="./view.jsp"><img src="../images/market_item3.jpg" alt="방울토마토"></a>
-                    </td>
-                    <td>야채</td>
-                    <td><a href="#">방울토마토</a></td>
-                    <td><strong>5,000</strong>원</td>
-                </tr>
-                <tr>
-                    <td>
-                        <a href="./view.jsp"><img src="../images/market_item4.jpg" alt="딸기 500g"></a>
-                    </td>
-                    <td>과일</td>
-                    <td><a href="#">딸기 500g</a></td>
-                    <td><strong>4,000</strong>원</td>
-                </tr>
-                <tr>
-                    <td>
-                        <a href="./view.jsp"><img src="../images/market_item5.jpg" alt="ㅊ"></a>
-                    </td>
-                    <td>과일</td>
-                    <td><a href="#">오렌지</a></td>
-                    <td><strong>8,000</strong>원</td>
-                </tr>
-                <tr>
-                    <td>
-                        <a href="./view.jsp"><img src="../images/market_item6.jpg" alt="무농약현미"></a>
-                    </td>
-                    <td>곡류</td>
-                    <td><a href="#">무농약현미</a></td>
-                    <td><strong>39,000</strong>원</td>
-                </tr>
-                <tr>
-                    <td>
-                        <a href="./view.jsp"><img src="../images/market_item7.jpg" alt="팜스토리 하루야채 샐러드"></a>
-                    </td>
-                    <td>야채</td>
-                    <td><a href="#">팜스토리 하루야채 샐러드</a></td>
-                    <td><strong>9,900</strong>원</td>
-                </tr>
-                <tr>
-                    <td>
-                        <a href="./view.jsp"><img src="../images/market_item8.jpg" alt="바나나"></a>
-                    </td>
-                    <td>과일</td>
-                    <td><a href="#">바나나</a></td>
-                    <td><strong>3,000</strong>원</td>
-                </tr>
+                <%} %>
             </table>
 
             <p class="paging">
-                <a href="#"><</a>
-                <a href="#" class="on">[1]</a>
-                <a href="#">[2]</a>
-                <a href="#">[3]</a>
-                <a href="#">[4]</a>
-                <a href="#">[5]</a>
-                <a href="#">></a>
+            	<%if(pageGroupStart > 1){ %>
+                <a href="/FarmStory/market/list.jsp?pg=<%=pageStart-1%>&type=<%=type %>"" class="prev"><</a>
+                <%} %>
+                <%for(int i=pageGroupStart; i<=pageGroupEnd; i++){ %>
+                <a href="/FarmStory/market/list.jsp?pg=<%=i%>&type=<%=type %>&page=<%=pageEnd %>" class="num <%=i == currentPage ?"on":"" %>">[<%=i %>]</a>
+                <%} %>
+                <%if(pageGroupEnd < pageEnd){ %>
+                <a href="/FarmStory/market/list.jsp?pg=<%=pageGroupEnd + 1%>&type=<%=type %>" class="next">></a>
+                <%} %>
             </p>
 
             <!-- 내용 끝 -->

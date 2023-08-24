@@ -489,12 +489,13 @@ main > .info > div > .account {
 
 #sub > .market > .view > .basic {
     width: 100%;
-    height: 270px;
+    height: 300px;
     position: relative;
     overflow: hidden;
 }
 #sub > .market > .view > .basic > img {
     float: left;
+    width: 250px;
 }
 #sub > .market > .view > .basic > table {
     float: right;
@@ -567,6 +568,7 @@ input[type=number]::-webkit-outer-spin-button {
 }
 #sub > .market > .order > .info > img {
     float: left;
+    width: 270px;
 }
 #sub > .market > .order > .info > table {
     float: right;

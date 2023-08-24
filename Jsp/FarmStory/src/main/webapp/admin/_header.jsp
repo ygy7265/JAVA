@@ -3,11 +3,11 @@
 <%
 	UserDTO sessUser = (UserDTO)session.getAttribute("sessUser");
 
-	if(sessUser == null){
+	/* if(sessUser == null){
 		response.sendRedirect("/FarmStory/user/login.jsp?success=101");
 		
 		return;
-	}
+	} */
 %>
 <!DOCTYPE html>
 <html lang="en">
