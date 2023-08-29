@@ -3,9 +3,11 @@ package db;
 public class SQL {
 	public static final String INSERT_USER = "insert into `User` values(?,SHA2(?,256),?,?,?,?,null,?,?,?,?,NOW(),null)";
 	public static final String SELECT_USER = "select * from `User` where `uid` = ? and `pass` = SHA2(?,256)";
+	public static final String SELECT_USER_BY_NAME_AND_EMAIL = "select * from `User` where `name` = ? and `email` = ?";
 	public static final String SELECT_COUNT_UID = "select count(*) from `User` where `uid` = ?";
 	public static final String SELECT_COUNT_NICK= "select count(*) from `User` where `nick` = ?";
 	public static final String SELECT_COUNT_EMAIL = "select count(*) from `User` where `email` = ?";
+	public static final String SELECT_COUNT_NAME_EMAIL = "select count(*) from `User` where `name`=? and `email` = ?";
 	public static final String SELECT_COUNT_HP = "select count(*) from `User` where `hp` = ?";
 	public static final String INSERT_WRITER = "insert into Article(title,content,writer,regip,rdate) value(?,?,?,?,now()) ";
 	public static final String SELECT_ARTICLES = "SELECT a.*,b.`nick` FROM `Article` AS a "

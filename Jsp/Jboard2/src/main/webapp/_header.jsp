@@ -11,7 +11,7 @@
         <header>
             <h3>Board System v2.0</h3>
             <p>
-                <span>홍길동</span>님 반갑습니다.
-                <a href="#">[로그아웃]</a>
+                <span><a href="/Jboard2/user/myinfo.do">${sessionScope.sessUser.nick}</a></span>님 반갑습니다.
+                <a href="/Jboard2/user/logout.do?success=200">[로그아웃]</a>
             </p>
         </header>

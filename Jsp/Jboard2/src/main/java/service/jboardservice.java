@@ -25,7 +25,7 @@ public class jboardservice {
 	public TermsDTO selectTerms() {
 		return termsdao.selectTerms();
 	}
-	private static int gratecode;
+	
 	UserDAO userdao = UserDAO.getInstance(); 
 	
 	public void insertUesr(UserDTO dto) {
@@ -46,10 +46,23 @@ public class jboardservice {
 	public int selectCountHp(String hp) {
 		return userdao.selectCountHp(hp);
 	}
+	public int selectCountEmail(String email) {
+		return userdao.selectCountEmail(email);
+	}
+	public int selectCountNameAndEmail(String name,String email) {
+		return userdao.selectCountNameAndEmail(name,email);
+	}
+	public UserDTO selectUserByNameAndEmail(String name,String email) {
+		return userdao.selectUserByNameAndEmail(name,email);
+	}
 	
+	
+	private static int gratecode;
+	//receiver 받는사람
 	public int sendCodeByEmail(String receiver) {
 		gratecode = ThreadLocalRandom.current().nextInt(0,100000);
 		
+		//보낼사람 아이디비번
 		String sender = "parasite.ygy@gmail.com";
 		String password = "beomunftwjbfqfeu";
 		String title = "Jboard2 Code";
@@ -89,7 +102,7 @@ public class jboardservice {
 		
 		return status;
 	}
-	
+	//코드비교
 	public int cofirmCodeByEmail(int code) {
 		logger.info(""+code);
 		logger.info(""+gratecode);
