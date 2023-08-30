@@ -3,6 +3,7 @@ package dao;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.List;
 
 import javax.naming.Context;
@@ -24,6 +25,42 @@ public class UserDAO extends DBHelper{
 	public static UserDAO getInstance() { return instance; }
 	private UserDAO() {}
 	Logger logger = LoggerFactory.getLogger(this.getClass());
+	
+	public UserDTO selectUserUid(String uid) {
+		int result = 0;
+		UserDTO dto = null;
+				
+		try{
+			getConeecition();
+			PreparedStatement pst = conn.prepareStatement(SQL.SELECT_USER_UID);
+			pst.setString(1, uid);
+			
+			ResultSet rs = pst.executeQuery();
+			
+			if(rs.next()){
+				dto = new UserDTO();
+				dto.setUid(rs.getString(1));
+				dto.setPass(rs.getString(2));
+				dto.setName(rs.getString(3));
+				dto.setNick(rs.getString(4));
+				dto.setEmail(rs.getString(5));
+				dto.setHp(rs.getString(6));
+				dto.setRole(rs.getString(7));
+				dto.setZip(rs.getString(8));
+				dto.setAddr1(rs.getString(9));
+				dto.setAddr2(rs.getString(10));
+				dto.setRegip(rs.getString(11));
+				dto.setRegDate(rs.getString(12));
+				dto.setLeaveDate(rs.getString(13));
+			}
+			
+			close();
+		}catch(Exception e){
+			logger.error("selcetcount uid error =" + e.getMessage());
+		}
+		return dto;
+	}
+	
 	public int selectCountUid(String uid) {
 		int result = 0;
 		try{
@@ -111,6 +148,34 @@ public class UserDAO extends DBHelper{
 		return result;
 		
 	}
+	
+	public int selectCountUidAndEmail(String uid,String email) {
+		int result = 0;
+		try{
+			Context initCtx = new InitialContext();
+			Context ctx = (Context) initCtx.lookup("java:comp/env");
+			DataSource ds = (DataSource) ctx.lookup("jdbc/jboard");
+			Connection conn =  ds.getConnection();
+			
+			PreparedStatement pst = conn.prepareStatement(SQL.SELECT_COUNT_UID_EMAIL);
+			pst.setString(1, uid);
+			pst.setString(2, email);
+			
+			ResultSet rs = pst.executeQuery();
+			
+			if(rs.next()){
+				 result = rs.getInt(1);
+			}
+			
+			close();
+		}catch(Exception e){
+			logger.error("select count email List error =" + e.getMessage());
+		}
+		return result;
+		
+	}
+	
+	
 	public int selectCountHp(String hp) {
 		int result = 0;
 		
@@ -194,7 +259,7 @@ public class UserDAO extends DBHelper{
 		try{
 		conn = getConeecition();
 		
-		pst = conn.prepareStatement(SQL.SELECT_USER);
+		pst = conn.prepareStatement(SQL.SELECT_USER_BY_NAME_AND_EMAIL);
 		pst.setString(1, name);
 		pst.setString(2, email);
 		rs = pst.executeQuery();
@@ -222,6 +287,82 @@ public class UserDAO extends DBHelper{
 		}
 		return dto;
 	}
+	public UserDTO selectUserByPassAndEmail(String uid,String email) {
+		UserDTO dto = null;
+		try{
+		conn = getConeecition();
+		
+		pst = conn.prepareStatement(SQL.SELECT_USER_BY_UID_AND_EMAIL);
+		pst.setString(1, uid);
+		pst.setString(2, email);
+		rs = pst.executeQuery();
+		
+		if(rs.next()){
+			dto = new UserDTO();
+			dto.setUid(rs.getString(1));
+			dto.setPass(rs.getString(2));
+			dto.setName(rs.getString(3));
+			dto.setNick(rs.getString(4));
+			dto.setEmail(rs.getString(5));
+			dto.setHp(rs.getString(6));
+			dto.setRole(rs.getString(7));
+			dto.setZip(rs.getString(8));
+			dto.setAddr1(rs.getString(9));
+			dto.setAddr2(rs.getString(10));
+			dto.setRegip(rs.getString(11));
+			dto.setRegDate(rs.getString(12));
+			dto.setLeaveDate(rs.getString(13));
+		}
+		
+		close();
+		}catch(Exception e){
+			logger.error("selectUserByUIDAndEmail =" + e.getMessage());
+		}
+		return dto;
+	}
 	public void updatetUser() {}	
-	public void deleteUser() {}
+	public int updateUserPass(String pass,String uid) {
+		int result = 0;
+		conn = getConeecition();
+		try {
+			logger.info("updateUserPassing");
+			pst = conn.prepareStatement(SQL.UPDATE_USER_PASS);
+			pst.setString(1, pass);
+			pst.setString(2, uid);
+			result = pst.executeUpdate();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			logger.error("update User Pass ="+ e.getMessage());
+		}
+		return result;
+	}
+	
+	public int updateUserForWithdraw(String uid) {
+		int result = 0;
+		conn = getConeecition();
+		try {
+			logger.info("updateUserForWithdraw ing..");
+			pst = conn.prepareStatement(SQL.UPDATE_USER_FOR_WITHDRAW);
+			pst.setString(1, uid);
+			result = pst.executeUpdate();
+			
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			logger.error("updateUserForWithdraw = " + e.getMessage());
+		}
+		
+		return result;
+	}
+
+	public void deleteUser(String uid) {
+		
+		conn = getConeecition();
+		try {
+			pst = conn.prepareStatement(SQL.UPDATE_USER_FOR_WITHDRAW);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
 }

@@ -3,6 +3,7 @@ package DTO;
 import com.google.gson.Gson;
 
 public class OrderDTO {
+	
 	private int orderNo;
 	private int orderProduct;
 	private int orderCount;
@@ -14,6 +15,7 @@ public class OrderDTO {
 	private String orderpName;
 	private String thumb1;
 	
+
 	public String getThumb1() {
 		return thumb1;
 	}
@@ -93,10 +95,8 @@ public class OrderDTO {
 	
 	@Override
 	public String toString() {
-	
-	 Gson gson = new Gson(); 
-	 return gson.toJson(this);
-
+		Gson gson = new Gson();
+		return gson.toJson(this);
 	}
 	
 	

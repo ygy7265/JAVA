@@ -59,8 +59,9 @@
                             data-thumb=<%=orderlist.getThumb1() %>
                             >[상세확인]</a>
                             </td>
+                            
                         </tr>
-                        <%} %>
+                        <% System.out.println(orderlist);} %>
                     </table>
 
                     <p>
@@ -87,21 +88,23 @@
                 </nav>
 				<script>
 				$(function(){
-
 				    $('.showPopup').click(function(e){
 				    
 				    	var orderlist = $(this).data('order');
 				    	var thumb = $(this).data('thumb');
-				    	var orlist = JSON.parse(orderlist+'"}');
-						console.log(orlist);
-						console.log(thumb);
-				    	$('.num').text(orlist.orderNo);
-				    	$('.name').text(orlist.orderProduct);
-				    	$('.price').text(orlist.orderPrice);
-				    	$('.count').text(orlist.orderNo);
-				    	$('.delivery').text(orlist.orderDelivery);
-				    	$('.total').text(orlist.orderTotal);
-				    	$('.user').text(orlist.orderUser);
+				    	
+				    	var jsonlist = JSON.parse(orderlist+'"}');
+						console.log("orderlist : "+orderlist);
+						console.log(jsonlist);
+						console.log("jsonlist : "+jsonlist.orderpName);
+						
+				    	$('.num').text(jsonlist.orderNo);
+				    	$('.name').text(jsonlist.orderProduct);
+				    	$('.price').text(jsonlist.orderPrice);
+				    	$('.count').text(jsonlist.orderNo);
+				    	$('.delivery').text(jsonlist.orderDelivery);
+				    	$('.total').text(jsonlist.orderTotal);
+				    	$('.user').text(jsonlist.orderUser);
 				    	$('.img').attr("src","/FarmStory/images/"+thumb);
 				 
 				        e.preventDefault();

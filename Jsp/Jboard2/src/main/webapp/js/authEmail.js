@@ -6,11 +6,15 @@ $(function(){
 		
 		const email = $('input[name=email]').val();
 		const name = $('input[name=name]').val();
+		const type = $('input[name=type]').val();
+		const uid = $('input[name=uid]').val();
 		const jsonData = {
 			"email": email,
-			"name" : name
+			"name" : name,
+			"type" : type,
+			"uid" : uid
 		};
-		
+		console.log(jsonData);
 		if(preventDoubleClick){
 			return;
 		}
@@ -61,7 +65,7 @@ $(function(){
 		const jsonData = {
 			"code": code
 		};
-				
+		console.log(jsonData);	
 		$.ajax({
 			url: '/Jboard2/user/authEmail.do',
 			type: 'POST',

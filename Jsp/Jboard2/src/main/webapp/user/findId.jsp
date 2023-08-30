@@ -1,9 +1,10 @@
 <%@ page contentType="text/html;charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ include file="./_header.jsp" %>
 <script src="/Jboard2/js/authEmail.js"></script>
+<script src="/Jboard2/js/validation.js"></script>
 <script>
 	$(function(){
-		$('btnNext').click(function(e){
+		$('.btnNext').click(function(e){
 			e.preventDefault();
 			if(isEmailOk){
 				$('#formFindId').submit();
@@ -15,7 +16,8 @@
 </script>
         <main id="user">
             <section class="find findId">
-                <form id="formFindId" action="/Jboard2/user/findIdResult.do" method="GET">
+                <form id="formFindId" action="/Jboard2/user/findIdResult.do" method="POST">
+                <input type="hidden" name="type" value="FIND_ID"/>
                     <table border="0">
                         <caption>아이디 찾기</caption>
                         <tr>
@@ -45,7 +47,7 @@
                 </p>
 
                 <div>
-                    <a href="/Jboard2/user/findId.do" class="btn btnCancel">취소</a>
+                    <a href="/Jboard2/user/login.do" class="btn btnCancel">취소</a>
                     <a href="/Jboard2/user/findIdResult.do" class="btn btnNext">다음</a>
                 </div>
             </section>

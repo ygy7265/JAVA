@@ -28,17 +28,28 @@ public class AuthEmailController extends HttpServlet{
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		String email = req.getParameter("email");
 		String name = req.getParameter("name");
+		String type = req.getParameter("type");
+		String uid = req.getParameter("uid");
+		logger.info(uid);
+		logger.info(email);
 		int result = 0;
 		int status = 0;
-		if(name == null) {
+		if(type.equals("REGISTER")) {
 			 result = service.selectCountEmail(email);
-			 status = service.sendCodeByEmail(email);
-		}else {
+			 if(result == 0) {
+				 status = service.sendCodeByEmail(email);
+			 }
+			 
+		}else if(type.equals("FIND_ID")){
 			 result = service.selectCountNameAndEmail(name,email);
 			 if(result == 1) {
 				 status = service.sendCodeByEmail(email);
 				}
-
+		}else if(type.equals("FIND_PASS")){
+			 result = service.selectCountUidAndEmail(uid,email);
+			 if(result == 1) {
+				 status = service.sendCodeByEmail(email);
+			 }
 		}
 		
 				

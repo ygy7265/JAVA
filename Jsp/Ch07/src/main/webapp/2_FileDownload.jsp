@@ -17,7 +17,7 @@ try{
 	Connection conn = ds.getConnection();
 	Statement st = conn.createStatement();
 	
-	ResultSet rs= st.executeQuery("Select * from `FileTest`");
+	ResultSet rs = st.executeQuery("Select * from `FileTest`");
 	
 	while(rs.next()){
 		dto.FileDTO dto = new dto.FileDTO();

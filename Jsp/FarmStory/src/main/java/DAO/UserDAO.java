@@ -7,14 +7,19 @@ import java.util.List;
 import DB.DBHellper;
 import DB.SQL;
 import DTO.UserDTO;
-
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 public class UserDAO extends DBHellper{
 	private static UserDAO instance = new UserDAO();
 	public static UserDAO getInstance() {return instance;}
 	private UserDAO() {}
+	
+
+	private Logger logger = LoggerFactory.getLogger(this.getClass());
 	public void insertUser(UserDTO dto) {
 		conn = getConnection();
 		try {
+			logger.info("insert User View..");
 			pst = conn.prepareStatement(SQL.INSERT_USER);
 			pst.setString(1, dto.getUid());
 			pst.setString(2, dto.getPass());
@@ -30,8 +35,7 @@ public class UserDAO extends DBHellper{
 			pst.executeUpdate();			
 			close();
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			logger.error("insert error = " + e.getMessage());
 		}
 	}
 	
@@ -39,6 +43,7 @@ public class UserDAO extends DBHellper{
 		conn = getConnection();
 		UserDTO dto = null;
 		try {
+			logger.info("User Login Start..");
 			pst = conn.prepareStatement(SQL.Login_User);
 			pst.setString(1, uid);
 			pst.setString(2, pass);
@@ -61,8 +66,7 @@ public class UserDAO extends DBHellper{
 				dto.setLeaveDate(rs.getString(13));
 			}
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			logger.error("User Login error = " + e.getMessage());
 		}
 		return dto;
 	}
@@ -72,6 +76,7 @@ public class UserDAO extends DBHellper{
 		List<UserDTO> list = new ArrayList<>();
 		conn = getConnection();
 		try {
+			logger.info("User List Start..");
 			st = conn.createStatement();
 			rs = st.executeQuery(SQL.SELECT_USER_LIST);
 			
@@ -95,7 +100,7 @@ public class UserDAO extends DBHellper{
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			logger.error("User List error =" + e.getMessage());
 		}
 		return list;
 	}

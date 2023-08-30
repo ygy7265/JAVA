@@ -21,13 +21,17 @@ import dto.UserDTO;
 
 public class jboardservice {
 	private Logger logger = LoggerFactory.getLogger(this.getClass());
+	//Terms
 	TermsDAO termsdao = new TermsDAO();
 	public TermsDTO selectTerms() {
 		return termsdao.selectTerms();
 	}
 	
+	//User
 	UserDAO userdao = UserDAO.getInstance(); 
-	
+	public UserDTO selectUserUid(String uid) {
+		return userdao.selectUserUid(uid);
+	}
 	public void insertUesr(UserDTO dto) {
 		userdao.insertUser(dto);
 	}
@@ -35,11 +39,22 @@ public class jboardservice {
 	public UserDTO loginUser(String uid,String pass) {
 		return userdao.selectUsers(uid, pass);
 	}
+	public int updateUserPass(String pass,String uid) {
+		return userdao.updateUserPass(pass, uid);
+	}
 	
+	
+	public int updateUseforwithdraw(String uid) {
+		return userdao.updateUserForWithdraw(uid);
+	}
+	
+	
+	
+	
+	//Count
 	public int CheckUid(String uid) {
 		return userdao.selectCountUid(uid);
 	}
-	
 	public int selectCountNick(String nick) {
 		return userdao.selectCountNick(nick);
 	}
@@ -52,11 +67,17 @@ public class jboardservice {
 	public int selectCountNameAndEmail(String name,String email) {
 		return userdao.selectCountNameAndEmail(name,email);
 	}
+	
+	public int selectCountUidAndEmail(String uid,String email) {
+		return userdao.selectCountUidAndEmail(uid,email);
+	}
 	public UserDTO selectUserByNameAndEmail(String name,String email) {
 		return userdao.selectUserByNameAndEmail(name,email);
 	}
 	
 	
+	
+	//Email
 	private static int gratecode;
 	//receiver 받는사람
 	public int sendCodeByEmail(String receiver) {

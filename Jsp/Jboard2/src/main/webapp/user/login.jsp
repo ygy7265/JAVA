@@ -1,5 +1,22 @@
 <%@ page contentType="text/html;charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ include file="./_header.jsp" %>
+<script>
+	const success = ${success};
+	switch (success) {
+	case 100:
+		alert('아이디, 비밀번호를 다시 확인하십시요.');
+		break;
+	case 102:
+		alert('비밀번호가 변경 되었습니다. 다시 로그인 하시기 바랍니다.');
+		break;
+	case 200:
+		alert('정상적으로 로그아웃 되었습니다.');
+		break;
+	default:
+		break;
+	}
+</script>
+
         <main id="user">
             <section class="login">
                 <form action="/Jboard2/user/login.do" method="post">

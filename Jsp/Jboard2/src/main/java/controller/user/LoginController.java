@@ -21,32 +21,10 @@ public class LoginController extends HttpServlet{
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		
 		String success = req.getParameter("success");
-		int parsesuccess = 0;
+		req.setAttribute("success", success);
 		
-		if(success != null) {
-			parsesuccess = Integer.parseInt(success);
-		}else {
 			RequestDispatcher dispatcher = req.getRequestDispatcher("/user/login.jsp");
 			dispatcher.forward(req, resp);
-		}
-		
-		
-			if(parsesuccess == 100) {
-				 resp.setContentType("text/html; charset=UTF-8");
-				 PrintWriter out = resp.getWriter();
-				 out.println("<script>alert('아이디를 확인해주세요.');history.go(-1);</script>");
-				 out.flush();
-				 resp.flushBuffer();
-				 out.close();
-				 
-			}else if(parsesuccess == 200) {
-				 resp.setContentType("text/html; charset=UTF-8");
-				 PrintWriter out = resp.getWriter();
-				 out.println("<script>alert('로그아웃완료.');location.href='/Jboard2/user/login.do';</script>");
-				 out.flush();
-				 resp.flushBuffer();
-				 out.close();	 
-		}
 			
 	}
 	@Override

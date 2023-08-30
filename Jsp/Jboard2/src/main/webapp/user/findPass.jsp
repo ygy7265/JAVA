@@ -1,8 +1,26 @@
 <%@ page contentType="text/html;charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ include file="./_header.jsp" %>
+<script src="/Jboard2/js/validation.js"></script>
+<script src="/Jboard2/js/authEmail.js"></script>
+<script type="text/javascript">
+
+	$('.btnNext').click(function(e){
+		e.preventDefault();
+		
+		 if(isEmailOk){
+			 $('#formpass').submit();	
+		}else{
+			alert("이메일 인증을 하세요");
+		} 
+		
+	});
+		
+</script>
         <main id="user">
             <section class="find findPass">
-                <form action="#">
+                <form id="formpass" action="/Jboard2/user/findPass.do" method="POST">
+                
+                <input type="hidden" name="type" value="FIND_PASS"/>
                     <table border="0">
                         <caption>비밀번호 찾기</caption>                        
                         <tr>
@@ -14,11 +32,12 @@
                             <td>
                                 <div>
                                     <input type="email" name="email" placeholder="이메일 입력"/>
-                                    <button type="button" class="btnAuth">인증번호 받기</button>
+                                    <button type="button" id="btnEmailCode" class="btnAuth">인증번호 받기</button>
                                 </div>
                                 <div>
                                     <input type="text" name="auth" disabled placeholder="인증번호 입력"/>
-                                    <button type="button" class="btnConfirm">확인</button>
+                                    <button type="button" id="btnEmailAuth">확인</button>
+                                    <span class="resultId"></span>
                                 </div>
                             </td>
                         </tr>                        
@@ -32,8 +51,8 @@
                 </p>
 
                 <div>
-                    <a href="./login.html" class="btn btnCancel">취소</a>
-                    <a href="./findPwChange.html" class="btn btnNext">다음</a>
+                    <a href="/Jboard2/user/login.do" class="btn btnCancel">취소</a>
+                    <a href="#" class="btn btnNext">다음</a>
                 </div>
             </section>
         </main>

@@ -26,9 +26,7 @@
     <!--
     <Manager pathname="" />
     -->
-    
-    <!-- Connection pull setting -->
-    <Resource
+        <Resource
     	name="jdbc/userdb"
     	auth="Container"
     	type="javax.sql.DataSource"
@@ -66,4 +64,5 @@
     	maxIdle="100"
     	maxWaitMillis="3000"
     />
+    
 </Context>
