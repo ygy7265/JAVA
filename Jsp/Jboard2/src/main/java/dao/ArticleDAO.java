@@ -4,33 +4,48 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import db.DBHelper;
 import db.SQL;
 import dto.ArticleDTO;
 
 public class ArticleDAO extends DBHelper{
-	public void insertAticle(ArticleDTO dto) {
-
+	private Logger logger = LoggerFactory.getLogger(this.getClass());
+	public int insertAticle(ArticleDTO dto) {
+		
+		int no = 0;
 		try {
 			conn = getConeecition();
+			conn.setAutoCommit(false);//트랜잭션 시작
+			
+			st = conn.createStatement();
 			pst= conn.prepareStatement(SQL.INSERT_WRITER);
 			pst.setString(1, dto.getTitle());
 			pst.setString(2, dto.getContent());
-			pst.setString(3, dto.getWriter());
-			pst.setString(4, dto.getRegip());
+			pst.setInt(3, dto.getFile());
+			pst.setString(4, dto.getWriter());
+			pst.setString(5, dto.getRegip());
 			pst.executeUpdate();
+			rs = st.executeQuery(SQL.SELECT_ARPICLE_MAX_NO);
+			
+			conn.commit(); //끝
+			if(rs.next()) {
+				no = rs.getInt(1);
+			}
 			close();
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-	
+		return no;
 	}
 	
-	public ArticleDTO selectAticle(String no) {
+	public ArticleDTO selectArticle(String no) {
 		conn = getConeecition();
 		ArticleDTO vo = new ArticleDTO();
 		try {
+			
 			pst = conn.prepareStatement(SQL.SELECT_ARPICLE_NO );
 			pst.setString(1, no);
 			rs = pst.executeQuery();
@@ -48,6 +63,39 @@ public class ArticleDAO extends DBHelper{
 				vo.setWriter(rs.getString(9));
 				vo.setRegip(rs.getString(10));
 				vo.setRdate(rs.getString(11));
+				vo.setoName(rs.getString(12));
+				
+			}
+			close();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return vo;
+	}
+	public ArticleDTO selectArticleview(String no) {
+		conn = getConeecition();
+		ArticleDTO vo = new ArticleDTO();
+		try {
+			
+			pst = conn.prepareStatement(SQL.SELECT_ARPICLE_VIEW );
+			pst.setString(1, no);
+			rs = pst.executeQuery();
+			
+			if(rs.next()) {
+				
+				vo.setNo(rs.getInt(1));
+				vo.setParent(rs.getInt(2));
+				vo.setComment(rs.getInt(3));
+				vo.setCate(rs.getString(4));
+				vo.setTitle(rs.getString(5));
+				vo.setContent(rs.getString(6));
+				vo.setFile(rs.getInt(7));
+				vo.setHit(rs.getInt(8));
+				vo.setWriter(rs.getString(9));
+				vo.setRegip(rs.getString(10));
+				vo.setRdate(rs.getString(11));
+				
 				
 			}
 			close();
@@ -81,6 +129,39 @@ public class ArticleDAO extends DBHelper{
 			 dto.setRegip(rs.getString(10));
 			 dto.setRdate(rs.getString(11));
 			 dto.setNick(rs.getString(12));
+			
+			
+			list.add(dto);
+			}
+			close();
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+
+		return list;
+	}
+	public List<ArticleDTO> selectAticless() {
+		List<ArticleDTO> list = new ArrayList<>();
+		try{
+			conn = getConeecition();
+			pst = conn.prepareStatement(SQL.SELECT_ARPICLE);
+			rs = pst.executeQuery();
+			
+			while(rs.next()) {
+			 ArticleDTO dto = new ArticleDTO();
+			
+			 dto.setNo(rs.getInt(1));
+			 dto.setParent(rs.getInt(2));
+			 dto.setComment(rs.getInt(3));
+			 dto.setCate(rs.getString(4));
+			 dto.setTitle(rs.getString(5));
+			 dto.setContent(rs.getString(6));
+			 dto.setFile(rs.getInt(7));
+			 dto.setHit(rs.getInt(8));
+			 dto.setWriter(rs.getString(9));
+			 dto.setRegip(rs.getString(10));
+			 dto.setRdate(rs.getString(11));
+			 
 			
 			
 			list.add(dto);
@@ -182,7 +263,7 @@ public class ArticleDAO extends DBHelper{
 		}
 	}
 	
-	public void deleteComment(String no) {
+	public void deleteArticle(String no) {
 		
 		try {
 			conn = getConeecition();
@@ -193,7 +274,7 @@ public class ArticleDAO extends DBHelper{
 			close();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			logger.error("delete : "+e.getMessage());
 		}
 		
 	}
@@ -203,6 +284,22 @@ public class ArticleDAO extends DBHelper{
 		
 	}
 	
-	public void updateAticle(ArticleDTO dto) {}
+	public void updateAticle(ArticleDTO dto) {
+		try {
+			conn = getConeecition();
+			pst = conn.prepareStatement(SQL.UPDATE_ARTICLE);
+			pst.setString(1, dto.getTitle());
+			pst.setString(2, dto.getContent());
+			pst.setInt(3, dto.getNo());
+			pst.executeUpdate();
+			
+			close();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+	
 	
 }

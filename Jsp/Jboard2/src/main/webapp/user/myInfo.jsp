@@ -1,7 +1,7 @@
 <%@ page contentType="text/html;charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ include file="./_header.jsp" %>
-//<script type="text/javascript" src="/Jboard2/js/validation.js"></script>
-<!-- <script>
+<script type="text/javascript" src="/Jboard2/js/validation.js"></script>
+ <script>
 	window.onload = function(){
 		const inputUid = document.getElementsByName('uid')[0];
 		const inputPass = document.getElementsByName('pass1')[0];
@@ -19,23 +19,14 @@
 		btnWithdraw.addEventListener('click',function(e){
 
 				const formData = new FormData();
-				formData.append('kind','WITHDRAW');
-				 console.log('formdata', formData);
-				//formData.append('uid',inputUid.value);
-				//formData.append('pass',inputPass.value);
-				/* fetch('/Jboard2/user/myinfo.do',{
-					method: 'POST',
-				     body: formData,					
-				})
-				.then((response)=>response.json())
-				.then(data => {
-		        console.log('서버 응답 데이터:', data);
-		     	 })
-		      	.catch(error => {
-		        console.error('에러 발생:', error);
-		      	});
-				 */
-				/* $.ajax({
+				
+				const jsonData = {
+						"kind":"WITHDRAW",
+						"uid":inputUid.value,
+						"pass":inputPass.value
+				}
+				
+				 $.ajax({
 					url:'/Jboard2/user/myinfo.do',
 					type: 'POST',
 					data: jsonData,
@@ -49,40 +40,12 @@
 						}
 					}
 						
-				}) */
+				}) 
 		}); 
 		
 		
 	}
-</script> -->
-<script type="text/javascript">
-document.addEventListener('DOMContentLoaded', () => {
-	  const btnWithdraw = document.getElementById('btnWithdraw');
-
-	  btnWithdraw.addEventListener('click', () => {
-	    // 탈퇴 처리를 위한 코드
-	    const jsonData = {
-   			 kind: "WITHDRAW"
-		};
-		
-		const formData = new FormData();
-		formData.append("kind", JSON.stringify({kind : "WITHDRAW"}));
-	    fetch('/Jboard2/user/myinfo.do', {
-	      method: 'POST',
-	      body: formData,
-	    })
-	    .then(response => response.json())
-	    .then(data => {
-	      console.log('서버 응답 데이터:', data);
-	      // 탈퇴 처리 완료 후 추가 작업 가능
-	    })
-	    .catch(error => {
-	      console.error('에러 발생:', error);
-	    });
-	  });
-	});
-
-</script>
+</script> 
         <main id="user">
             <section class="myInfo">
                 <form action="#" method="post">
